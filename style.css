@@ -1,0 +1,833 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-primary: #0a192f;
+    --bg-secondary: #112240;
+    --bg-tertiary: #1a2f4a;
+    --text-primary: #ccd6f6;
+    --text-secondary: #8892b0;
+    --text-heading: #e6f1ff;
+    --accent: #64ffda;
+    --accent-hover: #52d4b3;
+    --border: #233554;
+}
+
+/* Cyberpunk Neon Theme */
+/* :root {
+    --background: #0a0a12;
+    --navy: #15152b;
+    --navy-light: #1e1e3f;
+    --navy-lightest: #2a2a55;
+    --slate: #8b8ba9;
+    --slate-light: #a9a9c9;
+    --slate-lightest: #d0d0f0;
+    --white: #f0f0ff;
+    --teal: #00f5d4;
+    --accent: #ff2a6d;
+}
+
+[data-theme="light"] {
+    --background: #f5f5ff;
+    --navy: #e0e0f5;
+    --navy-light: #d0d0ea;
+    --navy-lightest: #b8b8d8;
+    --slate: #666687;
+    --slate-light: #444465;
+    --slate-lightest: #2a2a45;
+    --teal: #008c7a;
+    --accent: #d10047;
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navigation */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(10, 25, 47, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: var(--accent-hover);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.mobile-menu-btn span {
+    width: 25px;
+    height: 2px;
+    background-color: var(--accent);
+    transition: all 0.3s ease;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 80px;
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--text-heading);
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+.hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.tag {
+    background-color: rgba(100, 255, 218, 0.1);
+    color: var(--accent);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid rgba(100, 255, 218, 0.2);
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid var(--accent);
+}
+
+.btn-primary {
+    background-color: rgba(100, 255, 218, 0.1);
+    color: var(--accent);
+}
+
+.btn-primary:hover {
+    background-color: rgba(100, 255, 218, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--accent);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(100, 255, 218, 0.1);
+}
+
+/* Section Styles */
+.section {
+    padding: 100px 0;
+}
+
+.section-dark {
+    background-color: var(--bg-secondary);
+}
+
+.section-title {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    color: var(--text-heading);
+    margin-bottom: 50px;
+    font-weight: 700;
+}
+
+.section-description {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    max-width: 800px;
+}
+
+.subsection-title {
+    font-size: 1.75rem;
+    color: var(--text-heading);
+    margin-top: 60px;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.service-card {
+    background-color: var(--bg-secondary);
+    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.service-card h3 {
+    color: var(--text-heading);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.service-features {
+    list-style: none;
+}
+
+.service-features li {
+    color: var(--text-secondary);
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+}
+
+.service-features li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 1.2rem;
+}
+
+/* Modes Section */
+.modes-section {
+    margin-top: 60px;
+}
+
+.modes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.mode-card {
+    background-color: rgba(100, 255, 218, 0.05);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(100, 255, 218, 0.2);
+}
+
+.mode-card h4 {
+    color: var(--accent);
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.mode-card p {
+    color: var(--text-secondary);
+}
+
+/* Platform Selector */
+.platform-selector {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.platform-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.platform-btn {
+    padding: 15px 25px;
+    border: 2px solid var(--accent);
+    background-color: transparent;
+    color: var(--accent);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.platform-btn:hover {
+    background-color: rgba(100, 255, 218, 0.1);
+    transform: translateY(-2px);
+}
+
+.platform-btn.active {
+    background-color: var(--accent);
+    color: var(--bg-primary);
+}
+
+.platform-description {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Platform-specific pricing */
+.pricing-platform {
+    display: none;
+}
+
+.pricing-platform.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Pricing Section */
+.pricing-category {
+    margin-bottom: 60px;
+}
+
+.pricing-title {
+    font-size: 1.75rem;
+    color: var(--text-heading);
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.pricing-subtitle {
+    font-size: 1.5rem;
+    color: var(--text-heading);
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-left: 3px solid var(--accent);
+    padding-left: 15px;
+}
+
+.pricing-table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-tertiary);
+}
+
+.pricing-table thead {
+    background-color: rgba(100, 255, 218, 0.1);
+}
+
+.pricing-table th {
+    padding: 20px 15px;
+    text-align: left;
+    color: var(--accent);
+    font-weight: 600;
+    border-bottom: 2px solid var(--border);
+}
+
+.pricing-table td {
+    padding: 18px 15px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border);
+}
+
+.pricing-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.pricing-table tbody tr:hover {
+    background-color: rgba(100, 255, 218, 0.05);
+}
+
+.tier-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.tier-lite {
+    background-color: rgba(100, 255, 218, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(100, 255, 218, 0.3);
+}
+
+.tier-standard {
+    background-color: rgba(100, 200, 255, 0.1);
+    color: #64c8ff;
+    border: 1px solid rgba(100, 200, 255, 0.3);
+}
+
+.tier-ultimate {
+    background-color: rgba(255, 100, 150, 0.1);
+    color: #ff6496;
+    border: 1px solid rgba(255, 100, 150, 0.3);
+}
+
+/* OWASP Table */
+.owasp-table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 30px;
+}
+
+.owasp-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-secondary);
+}
+
+.owasp-table thead {
+    background-color: rgba(100, 255, 218, 0.1);
+}
+
+.owasp-table th {
+    padding: 20px 15px;
+    text-align: left;
+    color: var(--accent);
+    font-weight: 600;
+    border-bottom: 2px solid var(--border);
+}
+
+.owasp-table td {
+    padding: 18px 15px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border);
+}
+
+.owasp-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.owasp-table tbody tr:hover {
+    background-color: rgba(100, 255, 218, 0.05);
+}
+
+.category-cell {
+    font-weight: 600;
+    color: var(--text-heading);
+}
+
+.mobile-specific {
+    background-color: rgba(100, 255, 218, 0.03);
+}
+
+.coverage-full {
+    color: #52d4b3;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.coverage-partial {
+    color: #ffa726;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.coverage-none {
+    color: #ef5350;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* Legend */
+.legend {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 20px;
+    background-color: rgba(100, 255, 218, 0.05);
+    border-radius: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-item span:last-child {
+    color: var(--text-secondary);
+}
+
+/* Contact Section */
+.contact-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.contact-description {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+}
+
+.contact-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--bg-secondary);
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid var(--border);
+}
+
+.footer p {
+    color: var(--text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-secondary);
+        flex-direction: column;
+        padding: 30px;
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .hero {
+        padding-top: 100px;
+    }
+
+    .platform-options {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .platform-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .contact-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-actions .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+        padding: 12px 10px;
+        font-size: 0.9rem;
+    }
+
+    .owasp-table th,
+    .owasp-table td {
+        padding: 12px 10px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .section {
+        padding: 60px 0;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .platform-btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Tambahkan ini ke file style.css yang sudah ada */
+
+/* Tier Explanation Section */
+.tiers-comparison {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.tier-card {
+    background-color: var(--bg-primary);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid var(--border);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tier-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.tier-popular {
+    border: 2px solid var(--accent);
+    transform: scale(1.05);
+}
+
+.tier-popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent);
+    color: var(--bg-primary);
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.tier-header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.tier-header h3 {
+    color: var(--text-heading);
+    font-size: 1.5rem;
+    margin: 15px 0 10px 0;
+}
+
+.tier-price {
+    color: var(--accent);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.tier-features h4 {
+    color: var(--text-heading);
+    font-size: 1.1rem;
+    margin: 20px 0 10px 0;
+    border-left: 2px solid var(--accent);
+    padding-left: 10px;
+}
+
+.tier-features ul {
+    list-style: none;
+    margin-bottom: 15px;
+}
+
+.tier-features li {
+    color: var(--text-secondary);
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.tier-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* Tier Selection Guide */
+.tier-selection-guide {
+    background-color: rgba(100, 255, 218, 0.05);
+    border-radius: 12px;
+    padding: 40px;
+    border: 1px solid rgba(100, 255, 218, 0.2);
+}
+
+.guide-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.guide-step {
+    background-color: var(--bg-primary);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.guide-step h4 {
+    color: var(--text-heading);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.guide-step p {
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Responsive Design untuk Tier Section */
+@media (max-width: 768px) {
+    .tiers-comparison {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .tier-popular {
+        transform: none;
+    }
+
+    .tier-card {
+        padding: 20px;
+    }
+
+    .tier-selection-guide {
+        padding: 25px;
+    }
+
+    .guide-steps {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .tier-header h3 {
+        font-size: 1.3rem;
+    }
+
+    .tier-price {
+        font-size: 1.1rem;
+    }
+
+    .tier-selection-guide {
+        padding: 20px;
+    }
+}
