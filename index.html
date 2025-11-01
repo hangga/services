@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberSec | Professional Penetration Testing Services</title>
+    <title>RegulCyber | Professional Penetration Testing Services</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,10 +11,11 @@
     <nav class="nav">
         <div class="container">
             <div class="nav-content">
-                <a href="#" class="logo">CyberSec</a>
+                <a href="#" class="logo">RegulCyber</a>
                 <div class="nav-links">
                     <a href="#about">About</a>
                     <a href="#services">Services</a>
+                    <a href="#delvelin">Free SAST</a>
                     <a href="#tier-info">Tiers</a>
                     <a href="#pricing">Pricing</a>
                     <a href="#owasp">Coverage</a>
@@ -66,7 +67,7 @@
                     <div class="profile-description">
                         <p>Been coding since 2008, fell in love with breaking things (securely!) along the way. I'm that weird friend who actually enjoys reading security advisories for fun.</p>
                         
-                        <div class="experience-highlights">
+                        <!-- <div class="experience-highlights">
                             <div class="experience-item">
                                 <span class="exp-number">15+</span>
                                 <span class="exp-text">Years in Tech</span>
@@ -79,6 +80,24 @@
                                 <span class="exp-number">Writer</span>
                                 <span class="exp-text">Security Guides</span>
                             </div>
+                        </div> -->
+                        <div class="experience-highlights">
+                            <div class="experience-item">
+                                <span class="exp-number">15+</span>
+                                <span class="exp-text">Years Experience in Tech</span>
+                            </div>
+                            <div class="experience-item">
+                                <span class="exp-number">20+</span>
+                                <span class="exp-text">Projects Shipped</span>
+                            </div>
+                            <div class="experience-item">
+                                <span class="exp-number">Security</span>
+                                <span class="exp-text">Researcher</span>
+                            </div>
+                            <!-- <div class="experience-item">
+                                <span class="exp-number">Security</span>
+                                <span class="exp-text">Educator</span>
+                            </div> -->
                         </div>
 
                         <div class="contributions">
@@ -167,8 +186,218 @@
         </div>
     </section>
 
+    <!-- Delvelin SAST Section -->
+    <section id="delvelin" class="section">
+        <div class="container">
+            <div class="delvelin-hero">
+                <div class="delvelin-badge">Open Source</div>
+                <h2 class="section-title">Delvelin: Code Vulnerability Analyzer</h2>
+                <p class="section-description">Free SAST tool for Java & Kotlin that catches security bugs during development</p>
+            </div>
+
+            <div class="delvelin-content">
+                <div class="delvelin-main">
+                    <!-- Installation -->
+                    <div class="delvelin-card">
+                        <h3>🚀 Quick Start</h3>
+                        <p>Add Delvelin to your project and start finding vulnerabilities in minutes.</p>
+                        
+                        <div class="code-tabs">
+                            <div class="tab-buttons">
+                                <button class="tab-btn active" data-tab="gradle">Gradle</button>
+                                <button class="tab-btn" data-tab="maven">Maven</button>
+                            </div>
+                            
+                            <div class="tab-content active" id="gradle">
+                                <div class="code-snippet">
+                                    <pre><code>repositories {
+    maven { url 'https://repo.repsy.io/mvn/hangga/repo' }
+}
+
+dependencies {
+    testImplementation('io.github.hangga:delvelin-plugin:0.2.1-beta')
+}</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="maven">
+                                <div class="code-snippet">
+                                    <pre><code>&lt;repository&gt;
+    &lt;id&gt;hangga-repsy-repo&lt;/id&gt;
+    &lt;url&gt;https://repo.repsy.io/mvn/hangga/repo&lt;/url&gt;
+&lt;/repository&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;io.github.hangga&lt;/groupId&gt;
+    &lt;artifactId&gt;delvelin-plugin&lt;/artifactId&gt;
+    &lt;version&gt;0.2.1-beta&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Basic Usage -->
+                    <div class="delvelin-card">
+                        <h3>💡 Basic Usage</h3>
+                        <p>Run Delvelin in your unit tests to keep production code clean:</p>
+                        
+                        <div class="code-snippet">
+                            <pre><code>@Test
+fun `vulnerability test`() {
+    Delvelin()
+        .setOutputFormat(OutputFileFormat.HTML)
+        .setAutoLaunchBrowser(true) // Opens browser for HTML reports
+        .setAllowedExtensions(".java", ".kt") 
+        .setShowSaveDialog(true)
+        .setShowDate(true)
+        .scan()
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Android Usage -->
+                    <div class="delvelin-card">
+                        <h3>📱 Android Support</h3>
+                        <p>For Android projects, use a custom listener to log in LogCat:</p>
+                        
+                        <div class="code-snippet">
+                            <pre><code>@Test
+fun `vulnerability test with custom listener for android`() {
+    Delvelin().setLogListener(object : LogListener {
+        override fun onGetLog(s: String) {
+            Log.d("DelvelinLog", s)
+        }
+
+        override fun onGetLog(stringBuffer: StringBuffer) {
+            Log.d("DelvelinLog", stringBuffer.toString())
+        }
+    }).scan()
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Custom Detectors -->
+                    <div class="delvelin-card">
+                        <h3>🔧 Custom Detectors</h3>
+                        <p>Create your own detectors for specific security patterns:</p>
+                        
+                        <div class="code-snippet">
+                            <pre><code>class ExampleCustomDetector : BaseDetector() {
+
+    init {
+        this.vulnerabilities = Vulnerabilities.UNSAFE_REFLECTION
+    }
+
+    override fun detect(line: String, lineNumber: Int) {
+        if (line.contains("examplePattern")) {
+            val specificLocation = specificLocation(lineNumber)
+            setValidVulnerability(
+                specificLocation,
+                "Example finding",
+                "Detected example pattern in the code"
+            )
+        }
+    }
+
+    override fun detect(content: String) {
+        if (content.contains("examplePattern")) {
+            val specificLocation = specificLocation(-1)
+            setValidVulnerability(
+                specificLocation,
+                "Example finding", 
+                "Detected example pattern in the full content"
+            )
+        }
+    }
+}
+
+// Usage in tests
+@Test
+fun `test using your own custom detector`() {
+    Delvelin().setOutputFormat(OutputFileFormat.HTML)
+        .addCustomDetector(ExampleCustomDetector())
+        .scan()
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="delvelin-sidebar">
+                    <!-- Features -->
+                    <div class="delvelin-card">
+                        <h4>✨ What Delvelin Does</h4>
+                        <ul class="feature-list">
+                            <li>Static Analysis for Java & Kotlin</li>
+                            <li>OWASP Security Standards</li>
+                            <li>Risk-based Vulnerability Prioritization</li>
+                            <li>HTML, JSON & Console Reports</li>
+                            <li>Custom Detector Support</li>
+                            <li>Android & Spring Boot Ready</li>
+                        </ul>
+                    </div>
+
+                    <!-- Configuration Options -->
+                    <div class="delvelin-card">
+                        <h4>⚙️ Configuration Options</h4>
+                        <div class="config-table">
+                            <div class="config-row">
+                                <span class="config-method">setOutputFormat()</span>
+                                <span class="config-desc">HTML, JSON, or LOG output</span>
+                            </div>
+                            <div class="config-row">
+                                <span class="config-method">setAllowedExtensions()</span>
+                                <span class="config-desc">File types to scan</span>
+                            </div>
+                            <div class="config-row">
+                                <span class="config-method">setAutoLaunchBrowser()</span>
+                                <span class="config-desc">Auto-open HTML reports</span>
+                            </div>
+                            <div class="config-row">
+                                <span class="config-method">setShowSaveDialog()</span>
+                                <span class="config-desc">Save dialog for reports</span>
+                            </div>
+                            <div class="config-row">
+                                <span class="config-method">addCustomDetector()</span>
+                                <span class="config-desc">Add your own detectors</span>
+                            </div>
+                            <div class="config-row">
+                                <span class="config-method">setLogListener()</span>
+                                <span class="config-desc">Custom logging (Android)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Best Practices -->
+                    <div class="delvelin-card">
+                        <h4>🎯 Best Practices</h4>
+                        <ul class="best-practices">
+                            <li>Run in unit tests, not production</li>
+                            <li>Use HTML format for detailed reports</li>
+                            <li>Add custom detectors for project-specific patterns</li>
+                            <li>Integrate with CI/CD pipelines</li>
+                            <li>Combine with manual security reviews</li>
+                        </ul>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="delvelin-card cta-card">
+                        <h4>🚀 Ready to Secure Your Code?</h4>
+                        <p>Get started with Delvelin today - it's completely free and open source.</p>
+                        <a href="https://github.com/hangga/delvelin" target="_blank" class="btn btn-primary full-width">
+                            <span class="btn-icon">⭐</span>
+                            Get Delvelin on GitHub
+                        </a>
+                        <p class="cta-note">Perfect for Java/Kotlin teams wanting security checks without the enterprise price tag.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Articles Section -->
-    <section id="articles" class="section">
+    <section id="articles" class="section section-dark">
         <div class="container">
             <h2 class="section-title">Security Stuff I Write About</h2>
             <p class="section-description">Sharing what I learn from breaking into things (with permission, of course)</p>
@@ -224,7 +453,7 @@
     </section>
 
     <!-- Tier Explanation Section -->
-    <section id="tier-info" class="section section-dark">
+    <section id="tier-info" class="section">
         <div class="container">
             <h2 class="section-title">Pick Your Security Level</h2>
             <p class="section-description">Choose how deep you want us to dig into your app's security</p>
@@ -353,7 +582,7 @@
     </section>
 
     <!-- Platform Selection -->
-    <section class="section">
+    <section class="section section-dark">
         <div class="container">
             <h2 class="section-title">What Are We Testing?</h2>
             <div class="platform-selector">
@@ -647,7 +876,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section section-dark">
+    <section id="contact" class="section">
         <div class="container">
             <div class="contact-content">
                 <h2 class="section-title">Ready to Lock Things Down?</h2>
@@ -663,7 +892,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 CyberSec. We break things so others can't. | Pentester: Hangga Aji Sayekti & Crew</p>
+            <p>&copy; 2025 RegulCyber. We break things so others can't. | Pentester: Hangga Aji Sayekti & Crew</p>
         </div>
     </footer>
 
