@@ -118,15 +118,6 @@ platformBtns.forEach(btn => {
     });
 });
 
-// Add parallax effect to hero background
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        hero.style.backgroundPosition = `center ${scrolled * 0.5}px`;
-    }
-});
-
 // Add loading animation
 window.addEventListener('load', () => {
     document.body.style.opacity = '0';
