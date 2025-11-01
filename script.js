@@ -1,4 +1,4 @@
-// Mobile menu toggle
+// Enhanced mobile menu toggle
 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const navLinks = document.querySelector('.nav-links');
 
@@ -16,7 +16,23 @@ navLinkItems.forEach(link => {
     });
 });
 
-// Smooth scroll offset for fixed nav
+// Enhanced scroll effect to navigation
+let lastScroll = 0;
+const nav = document.querySelector('.nav');
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll > 100) {
+        nav.classList.add('scrolled');
+    } else {
+        nav.classList.remove('scrolled');
+    }
+
+    lastScroll = currentScroll;
+});
+
+// Enhanced smooth scroll with offset
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -32,26 +48,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Add scroll effect to navigation
-let lastScroll = 0;
-const nav = document.querySelector('.nav');
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-
-    if (currentScroll > 100) {
-        nav.style.boxShadow = '0 10px 30px -10px rgba(0, 0, 0, 0.7)';
-    } else {
-        nav.style.boxShadow = 'none';
-    }
-
-    lastScroll = currentScroll;
-});
-
-// Add animation on scroll
+// Enhanced animation on scroll
 const observerOptions = {
     threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+    rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -59,30 +59,32 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
+            entry.target.style.filter = 'blur(0)';
         }
     });
 }, observerOptions);
 
-// Observe sections for animation
+// Observe sections for enhanced animation
 const sections = document.querySelectorAll('.section');
 sections.forEach(section => {
     section.style.opacity = '0';
     section.style.transform = 'translateY(30px)';
-    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    section.style.filter = 'blur(5px)';
+    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease';
     observer.observe(section);
 });
 
-// Observe service cards
-const serviceCards = document.querySelectorAll('.service-card, .mode-card');
+// Observe service cards with staggered animation
+const serviceCards = document.querySelectorAll('.service-card, .mode-card, .tier-card');
 serviceCards.forEach((card, index) => {
     card.style.opacity = '0';
     card.style.transform = 'translateY(30px)';
-    card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    card.style.filter = 'blur(5px)';
+    card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s, filter 0.6s ease ${index * 0.1}s`;
     observer.observe(card);
 });
 
 // Platform selection functionality
-// Update bagian platform selection functionality untuk include navigasi ke tier info
 const platformBtns = document.querySelectorAll('.platform-btn');
 const pricingPlatforms = document.querySelectorAll('.pricing-platform');
 const platformDescription = document.getElementById('platform-description');
@@ -116,4 +118,12 @@ platformBtns.forEach(btn => {
     });
 });
 
-// ... (kode JavaScript yang lain tetap sama)
+// Add loading animation
+window.addEventListener('load', () => {
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.3s ease';
+    
+    setTimeout(() => {
+        document.body.style.opacity = '1';
+    }, 100);
+});
