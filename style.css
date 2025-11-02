@@ -75,7 +75,7 @@ body {
     padding: 16px 0;
 }
 
-.logo {
+/* .logo {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-heading);
@@ -93,6 +93,37 @@ body {
 
 .logo:hover {
     color: var(--accent);
+} */
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo::before {
+    content: "⛰️";  /* Mountain emoji */
+    font-size: 1.6rem;
+}
+
+.logo:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* Optional: Mountain solid animation */
+.logo:hover::before {
+    animation: mountain-steady 0.8s ease-in-out;
+}
+
+@keyframes mountain-steady {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
 }
 
 .nav-links {
@@ -714,7 +745,7 @@ body {
 
 /* Footer */
 .footer {
-    background: var(--bg-secondary);
+    /* background: var(--bg-secondary); */
     padding: 32px 0;
     text-align: center;
     border-top: 1px solid var(--border);
@@ -1739,5 +1770,175 @@ body {
     .config-method {
         font-size: 0.75rem;
         min-width: 120px;
+    }
+}
+
+/* Honest Disclaimer */
+.honest-disclaimer {
+    background: rgba(47, 129, 247, 0.05);
+    border: 1px solid rgba(47, 129, 247, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+}
+
+.honest-disclaimer h4 {
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.honest-disclaimer p {
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Why Choose Me */
+.why-choose-me {
+    margin: 30px 0;
+}
+
+.why-choose-me h4 {
+    color: var(--text-heading);
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.why-choose-me ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.why-choose-me li {
+    color: var(--text-secondary);
+    padding: 8px 0;
+    line-height: 1.5;
+}
+
+/* Journey Section */
+.journey-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.journey-section h4 {
+    color: var(--text-heading);
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.journey-steps {
+    display: grid;
+    gap: 12px;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+.step-number {
+    background: var(--accent);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.step span:last-child {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Audience Grid */
+.audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.audience-card {
+    background: var(--bg-primary);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.audience-card h3 {
+    color: var(--text-heading);
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.audience-card ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.audience-card li {
+    color: var(--text-secondary);
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.audience-card li::before {
+    content: "•";
+    position: absolute;
+    left: 8px;
+    color: var(--text-secondary);
+}
+
+/* First Client Offer */
+.first-client-offer {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--feature-purple) 100%);
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    color: white;
+}
+
+.first-client-offer h3 {
+    color: white;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.first-client-offer p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.first-client-offer strong {
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .audience-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .first-client-offer {
+        padding: 30px 20px;
+    }
+    
+    .journey-steps {
+        grid-template-columns: 1fr;
     }
 }
