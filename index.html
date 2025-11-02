@@ -20,6 +20,7 @@
                     <a href="#pricing">Pricing</a>
                     <a href="#owasp">Coverage</a>
                     <a href="#articles">Articles</a>
+                    <a href="#process">Order</a>
                     <a href="#contact">Contact</a>
                 </div>
                 <button class="mobile-menu-btn" aria-label="Toggle menu">
@@ -287,7 +288,7 @@
             <div class="first-client-offer">
                 <h3>🎁 Special Offer for First Clients</h3>
                 <p>I'm building my security testing portfolio, so I'm offering <strong>50% off</strong> for the first 3 projects. Plus, if I don't find any significant vulnerabilities, you get <strong>50% of your money back</strong>.</p>
-                <a href="#contact" class="btn btn-primary">Grab This Deal</a>
+                <a href="#process" class="btn btn-primary">Grab This Deal</a>
             </div>
         </div>
     </section>
@@ -1357,6 +1358,210 @@ fun `test using your own custom detector`() {
                     <span class="coverage-none">✗</span>
                     <span>Doesn't Apply</span>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Process Section -->
+    <section id="process" class="order-process">
+        <div class="container">
+            <!-- <h2 class="section-title">How It Works</h2> -->
+            <h2 class="section-title">Order Security Testing</h2>
+            <p class="section-description">Simple 4-step process to secure your applications</p>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Place Your Order</h3>
+                    <p>Fill out the form with your testing requirements and scope</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>We Get to Work</h3>
+                    <p>Our security experts start testing based on your specifications</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Get Your Report</h3>
+                    <p>Receive detailed findings with risk ratings and fix recommendations</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Secure Your Apps</h3>
+                    <p>Implement our recommendations and verify fixes with us</p>
+                </div>
+            </div>
+            
+            <div class="payment-info">
+                <h3>💰 Payment Terms</h3>
+                <p>We require <strong>50% payment upfront</strong> to begin testing. The remaining 50% is due before we deliver the final report.</p>
+                <p>For returning customers with established relationships, we can discuss alternative arrangements.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section id="order" class="order-form-section">
+        <div class="container">
+            <!-- <h2 class="section-title">Order Security Testing</h2> -->
+            <p class="section-description">Fill out the form below and we'll get back to you within 24 hours</p>
+            
+            <div class="form-container">
+                <!-- Price Calculation Display -->
+                <div class="price-calculation" id="priceCalculation" style="display: none;">
+                    <div class="calculation-header">
+                        <div class="calculation-title">Estimated Price</div>
+                        <div class="calculation-amount" id="calculatedPrice">-</div>
+                    </div>
+                    <div class="calculation-details">
+                        <div class="calculation-item">
+                            <span class="calculation-label">Service Type:</span>
+                            <span class="calculation-value" id="calcServiceType">-</span>
+                        </div>
+                        <div class="calculation-item">
+                            <span class="calculation-label">Platform:</span>
+                            <span class="calculation-value" id="calcPlatform">-</span>
+                        </div>
+                        <div class="calculation-item">
+                            <span class="calculation-label">Tier:</span>
+                            <span class="calculation-value" id="calcTier">-</span>
+                        </div>
+                        <div class="calculation-item">
+                            <span class="calculation-label">Mode:</span>
+                            <span class="calculation-value" id="calcMode">-</span>
+                        </div>
+                        <div class="calculation-item">
+                            <span class="calculation-label">Estimated Hours:</span>
+                            <span class="calculation-value" id="calcHours">-</span>
+                        </div>
+                        <div class="calculation-item">
+                            <span class="calculation-label">Duration:</span>
+                            <span class="calculation-value" id="calcDuration">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label class="form-label" for="serviceType">Service Type <span class="required">*</span></label>
+                        <select class="form-select" id="serviceType" name="serviceType" required>
+                            <option value="">Select a service</option>
+                            <option value="va">Vulnerability Assessment (VA)</option>
+                            <option value="pt">Penetration Testing (PT)</option>
+                            <!-- <option value="va-pt">VA + PT Bundle</option> -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="platform">Platform <span class="required">*</span></label>
+                        <select class="form-select" id="platform" name="platform" required>
+                            <option value="">Select platform</option>
+                            <option value="web">Web Application</option>
+                            <option value="android">Android App</option>
+                            <option value="ios">iOS App</option>
+                            <!-- <option value="api">API</option> -->
+                            <!-- <option value="network">Network Infrastructure</option> -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="testingTier">Testing Tier <span class="required">*</span></label>
+                        <select class="form-select" id="testingTier" name="testingTier" required>
+                            <option value="">Select a tier</option>
+                            <option value="lite">Lite</option>
+                            <option value="standard">Standard</option>
+                            <option value="ultimate">Ultimate</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="testingMode">Testing Mode <span class="required">*</span></label>
+                        <select class="form-select" id="testingMode" name="testingMode" required>
+                            <option value="">Select a mode</option>
+                            <option value="greybox">Greybox Testing</option>
+                            <option value="blackbox">Blackbox Testing</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="domain">Primary Domain/App Name <span class="required">*</span></label>
+                        <input type="text" class="form-control" id="domain" name="domain" required placeholder="example.com or MyApp Name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="scope">Testing Scope <span class="required">*</span></label>
+                        <textarea class="form-control" id="scope" name="scope" required placeholder="Please describe what should be tested (URLs, specific functionalities, etc.) and any areas that are out of scope"></textarea>
+                        <div class="form-note">Be as specific as possible. Include URLs, IP addresses, or app details.</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="credentials">Test Credentials (if any)</label>
+                        <textarea class="form-control" id="credentials" name="credentials" placeholder="For greybox testing, provide test accounts (username/password) and their privilege levels"></textarea>
+                        <div class="form-note">We treat all credentials with strict confidentiality and delete them after testing.</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="specialRequirements">Special Requirements or Concerns</label>
+                        <textarea class="form-control" id="specialRequirements" name="specialRequirements" placeholder="Any specific compliance needs (PCI DSS, HIPAA), testing windows, or other requirements"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Contact Information <span class="required">*</span></label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <input type="text" class="form-control" id="fullName" name="fullName" required placeholder="Full Name">
+                            <input type="text" class="form-control" id="company" name="company" placeholder="Company Name">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <input type="email" class="form-control" id="email" name="email" required placeholder="Email Address">
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Proof of Ownership <span class="required">*</span></label>
+                        <div class="file-upload">
+                            <p>Please upload documentation proving you own or are authorized to test the target system</p>
+                            <input type="file" class="file-input" id="ownershipProof" name="ownershipProof" required>
+                            <div class="form-note">Acceptable formats: PDF, JPG, PNG. Max file size: 10MB</div>
+                            <div class="form-note">This could be: domain WHOIS info, authorization letter, business registration, etc.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Additional Documents (Optional)</label>
+                        <div class="file-upload">
+                            <p>You can upload additional files like NDA, scope documents, or previous test reports</p>
+                            <input type="file" class="file-input" id="additionalDocs" name="additionalDocs" multiple>
+                            <div class="form-note">Multiple files allowed. Max total size: 20MB</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="timeline">Desired Timeline</label>
+                        <select class="form-select" id="timeline" name="timeline">
+                            <option value="">Select preferred timeline</option>
+                            <option value="asap">As soon as possible</option>
+                            <option value="1week">Within 1 week</option>
+                            <option value="2weeks">Within 2 weeks</option>
+                            <option value="1month">Within 1 month</option>
+                            <option value="flexible">Flexible</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="agreement" required>
+                            I agree to the <a href="#" target="_blank">Terms of Service</a> and authorize this security testing
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="submit-btn">🚀 Submit Order Request</button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>

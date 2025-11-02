@@ -581,7 +581,7 @@ body {
 
 .pricing-table th {
     padding: 16px 12px;
-    text-align: left;
+    text-align: center;
     color: var(--text-heading);
     font-weight: 600;
     font-size: 0.9rem;
@@ -1942,3 +1942,269 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* Additional styles for the order form */
+        .order-process {
+            background: #1a202c;
+            padding: 10px 0;
+            color: white;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .process-step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 30px 20px;
+            margin: 10px;
+            background: #2d3748;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid #4a5568;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+        }
+        
+        .order-form-section {
+            padding: 60px 0;
+            background: #1a202c;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #2d3748;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #4a5568;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #4a5568;
+            border-radius: 6px;
+            font-size: 16px;
+            background: #1a202c;
+            color: #e2e8f0;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #4a5568;
+            border-radius: 6px;
+            font-size: 16px;
+            background: #1a202c;
+            color: #e2e8f0;
+            cursor: pointer;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .file-upload {
+            border: 2px dashed #4a5568;
+            padding: 25px;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 10px;
+            background: #1a202c;
+            transition: border-color 0.3s;
+        }
+        
+        .file-upload:hover {
+            border-color: #667eea;
+        }
+        
+        .file-input {
+            width: 100%;
+            padding: 10px;
+            color: #e2e8f0;
+        }
+        
+        .form-note {
+            font-size: 14px;
+            color: #a0aec0;
+            margin-top: 8px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .required {
+            color: #fc8181;
+        }
+        
+        .payment-info {
+            margin-top: 40px;
+            text-align: center;
+            background: #2d3748;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #4a5568;
+        }
+        
+        .payment-info h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        /* Price Calculation Styles */
+        .price-calculation {
+            background: #2d3748;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #4a5568;
+            margin-bottom: 25px;
+        }
+        
+        .calculation-header {
+            /* display: flex; */
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .calculation-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+        
+        .calculation-amount {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #68d391;
+            text-align: right;
+        }
+        
+        .calculation-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            font-size: 0.9em;
+            color: #a0aec0;
+        }
+        
+        .calculation-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #4a5568;
+        }
+        
+        .calculation-label {
+            font-weight: 500;
+        }
+        
+        .calculation-value {
+            color: #e2e8f0;
+        }
+        
+        @media (max-width: 768px) {
+            .process-steps {
+                flex-direction: column;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+            
+            .process-step {
+                min-width: 100%;
+            }
+            
+            .calculation-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Style untuk checkbox */
+        .form-group label input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .form-group label {
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group label a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .form-group label a:hover {
+            text-decoration: underline;
+        }
