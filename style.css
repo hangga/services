@@ -107,7 +107,7 @@ body {
 }
 
 .logo::before {
-    content: "⛰️";  /* Mountain emoji */
+    /* content: "⛰️";   */
     font-size: 1.6rem;
 }
 
