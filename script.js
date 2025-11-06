@@ -84,7 +84,7 @@ serviceCards.forEach((card, index) => {
     observer.observe(card);
 });
 
-// Platform selection functionality
+// Platform selection functionality - UPDATED ORDER
 const platformBtns = document.querySelectorAll('.platform-btn');
 const pricingPlatforms = document.querySelectorAll('.pricing-platform');
 const platformDescription = document.getElementById('platform-description');
@@ -146,7 +146,8 @@ tabBtns.forEach(btn => {
     });
 });
 
-// Pricing data with realistic durations (all increased by 5 days)
+// Pricing data with CORRECTED ORDER: Web (lowest), Android (middle), iOS (highest)
+// Pricing data with CORRECTED ORDER: Web (lowest), Android (middle), iOS (highest)
 const pricingData = {
     web: {
         va: {
@@ -181,60 +182,60 @@ const pricingData = {
     android: {
         va: {
             lite: { 
-                greybox: { hours: 12, duration: '7–10 days', idr: 4200000, usd: 280 }, 
-                blackbox: { hours: 15, duration: '8–11 days', idr: 5250000, usd: 350 } 
+                greybox: { hours: 14, duration: '8–11 days', idr: 4935000, usd: 752 }, 
+                blackbox: { hours: 18, duration: '9–12 days', idr: 6300000, usd: 960 } 
             },
             standard: { 
-                greybox: { hours: 30, duration: '9–14 days', idr: 10500000, usd: 700 }, 
-                blackbox: { hours: 38, duration: '10–15 days', idr: 13300000, usd: 890 } 
+                greybox: { hours: 35, duration: '10–15 days', idr: 11025000, usd: 1680 }, 
+                blackbox: { hours: 44, duration: '11–16 days', idr: 13860000, usd: 2112 } 
             },
             ultimate: { 
-                greybox: { hours: 60, duration: '12–20 days', idr: 21000000, usd: 1400 }, 
-                blackbox: { hours: 75, duration: '15–23 days', idr: 26250000, usd: 1750 } 
+                greybox: { hours: 70, duration: '13–19 days', idr: 22050000, usd: 3360 }, 
+                blackbox: { hours: 88, duration: '15–22 days', idr: 27563000, usd: 4200 } 
             }
         },
         pt: {
             lite: { 
-                greybox: { hours: 25, duration: '9–12 days', idr: 8750000, usd: 580 }, 
-                blackbox: { hours: 30, duration: '10–13 days', idr: 10500000, usd: 700 } 
+                greybox: { hours: 28, duration: '10–13 days', idr: 9450000, usd: 1728 }, 
+                blackbox: { hours: 35, duration: '11–14 days', idr: 11813000, usd: 2160 } 
             },
             standard: { 
-                greybox: { hours: 70, duration: '12–17 days', idr: 24500000, usd: 1630 }, 
-                blackbox: { hours: 85, duration: '14–19 days', idr: 29750000, usd: 1980 } 
+                greybox: { hours: 78, duration: '13–18 days', idr: 25515000, usd: 4752 }, 
+                blackbox: { hours: 98, duration: '15–20 days', idr: 31500000, usd: 5832 } 
             },
             ultimate: { 
-                greybox: { hours: 120, duration: '15–22 days', idr: 42000000, usd: 2800 }, 
-                blackbox: { hours: 150, duration: '17–25 days', idr: 52500000, usd: 3500 } 
+                greybox: { hours: 135, duration: '16–23 days', idr: 41580000, usd: 7776 }, 
+                blackbox: { hours: 169, duration: '18–26 days', idr: 51975000, usd: 9720 } 
             }
         }
     },
     ios: {
         va: {
             lite: { 
-                greybox: { hours: 15, duration: '8–11 days', idr: 5940000, usd: 396 }, 
-                blackbox: { hours: 19, duration: '9–12 days', idr: 7590000, usd: 506 } 
+                greybox: { hours: 16, duration: '9–12 days', idr: 6300000, usd: 960 }, 
+                blackbox: { hours: 20, duration: '10–13 days', idr: 7875000, usd: 1200 } 
             },
             standard: { 
-                greybox: { hours: 35, duration: '10–15 days', idr: 13860000, usd: 924 }, 
-                blackbox: { hours: 44, duration: '11–16 days', idr: 17380000, usd: 1159 } 
+                greybox: { hours: 40, duration: '11–16 days', idr: 13860000, usd: 2112 }, 
+                blackbox: { hours: 50, duration: '12–17 days', idr: 17325000, usd: 2640 } 
             },
             ultimate: { 
-                greybox: { hours: 65, duration: '13–19 days', idr: 26400000, usd: 1760 }, 
-                blackbox: { hours: 82, duration: '15–21 days', idr: 33000000, usd: 2200 } 
+                greybox: { hours: 80, duration: '14–21 days', idr: 27720000, usd: 4224 }, 
+                blackbox: { hours: 100, duration: '16–23 days', idr: 34650000, usd: 5280 } 
             }
         },
         pt: {
             lite: { 
-                greybox: { hours: 28, duration: '9–12 days', idr: 12320000, usd: 821 }, 
-                blackbox: { hours: 35, duration: '10–13 days', idr: 15400000, usd: 1027 } 
+                greybox: { hours: 32, duration: '11–14 days', idr: 11340000, usd: 2160 }, 
+                blackbox: { hours: 40, duration: '12–15 days', idr: 14175000, usd: 2700 } 
             },
             standard: { 
-                greybox: { hours: 75, duration: '12–17 days', idr: 29700000, usd: 1980 }, 
-                blackbox: { hours: 94, duration: '14–19 days', idr: 37000000, usd: 2466 } 
+                greybox: { hours: 85, duration: '14–19 days', idr: 29295000, usd: 5616 }, 
+                blackbox: { hours: 106, duration: '16–21 days', idr: 36225000, usd: 6912 } 
             },
             ultimate: { 
-                greybox: { hours: 130, duration: '15–22 days', idr: 52800000, usd: 3520 }, 
-                blackbox: { hours: 162, duration: '17–25 days', idr: 65000000, usd: 4333 } 
+                greybox: { hours: 150, duration: '17–24 days', idr: 51030000, usd: 9504 }, 
+                blackbox: { hours: 188, duration: '19–27 days', idr: 63788000, usd: 11880 } 
             }
         }
     }
