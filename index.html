@@ -16,11 +16,11 @@
                     <!-- <a href="#about">About</a> -->
                     <a href="#services">What we do</a>
                     <a href="#delvelin">Free SAST</a>
-                    <a href="#tier-info">Tiers</a>
+                    <!-- <a href="#tier-info">Tiers</a> -->
                     <a href="#pricing">Pricing</a>
                     <a href="#owasp">Coverage</a>
                     <a href="#articles">Articles</a>
-                    <a href="#orderForm">Order</a>
+                    <!-- <a href="#orderForm">Order</a> -->
                     <a href="#contact">Contact</a>
                 </div>
                 <button class="mobile-menu-btn" aria-label="Toggle menu">
@@ -394,7 +394,7 @@ fun `test using your own custom detector`() {
     </section>
 
     <!-- Tier Explanation Section -->
-    <section id="tier-info" class="section">
+    <!-- <section id="tier-info" class="section">
         <div class="container">
             <h2 class="section-title">Pick Your Security Level</h2>
             <p class="section-description">Choose how deep you want us to dig into your app's security</p>
@@ -520,7 +520,7 @@ fun `test using your own custom detector`() {
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Pricing Section -->
     <section id="pricing" class="section section-dark">
@@ -960,6 +960,85 @@ fun `test using your own custom detector`() {
                     </div>
                 </div>
             </div>
+
+            <h2 class="section-title">Get Your Instant Quote</h2>
+            <p class="section-description">Simulate pricing based on your needs before ordering</p>
+
+            <form id="orderForm">
+                    <!-- Bagian service details dalam grid 2x2 -->
+                    <div class="form-group">
+                        <!-- <label class="form-label">Service Details <span class="required">*</span></label> -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <label class="form-label" for="serviceType">Service Type</label>
+                                <select class="form-select" id="serviceType" name="serviceType" required>
+                                    <option value="">Select a service</option>
+                                    <option value="va">Vulnerability Assessment (VA)</option>
+                                    <option value="pt">Penetration Testing (PT)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label" for="platform">Platform</label>
+                                <select class="form-select" id="platform" name="platform" required>
+                                    <option value="">Select platform</option>
+                                    <option value="web">Web Application</option>
+                                    <option value="android">Android App</option>
+                                    <option value="ios">iOS App</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label" for="testingTier">Testing Tier</label>
+                                <select class="form-select" id="testingTier" name="testingTier" required>
+                                    <option value="">Select a tier</option>
+                                    <option value="lite">Lite</option>
+                                    <option value="standard">Standard</option>
+                                    <option value="ultimate">Ultimate</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label" for="testingMode">Testing Mode</label>
+                                <select class="form-select" id="testingMode" name="testingMode" required>
+                                    <option value="">Select a mode</option>
+                                    <option value="greybox">Greybox Testing</option>
+                                    <option value="blackbox">Blackbox Testing</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="price-calculation" id="priceCalculation" style="display: none;">
+                        <div class="calculation-header">
+                            <div class="calculation-title">Estimated Price</div>
+                            <div class="calculation-amount" id="calculatedPrice">-</div>
+                        </div>
+                        <div class="calculation-details">
+                            <div class="calculation-item">
+                                <span class="calculation-label">Service Type:</span>
+                                <span class="calculation-value" id="calcServiceType">-</span>
+                            </div>
+                            <div class="calculation-item">
+                                <span class="calculation-label">Platform:</span>
+                                <span class="calculation-value" id="calcPlatform">-</span>
+                            </div>
+                            <div class="calculation-item">
+                                <span class="calculation-label">Tier:</span>
+                                <span class="calculation-value" id="calcTier">-</span>
+                            </div>
+                            <div class="calculation-item">
+                                <span class="calculation-label">Mode:</span>
+                                <span class="calculation-value" id="calcMode">-</span>
+                            </div>
+                            <div class="calculation-item">
+                                <span class="calculation-label">Estimated Hours:</span>
+                                <span class="calculation-value" id="calcHours">-</span>
+                            </div>
+                            <div class="calculation-item">
+                                <span class="calculation-label">Duration:</span>
+                                <span class="calculation-value" id="calcDuration">-</span>
+                            </div>
+                        </div>
+                    </div>
+            </form>
         </div>
     </section>
 
@@ -1089,14 +1168,13 @@ fun `test using your own custom detector`() {
     <!-- Order Process Section -->
     <!-- Order Form Section -->
     
-    <section id="order" class="order-form-section">
+    <!-- <section id="order" class="order-form-section">
         <div class="container">
             <p class="section-description">Fill out the form below and we'll get back to you within 24 hours</p>
             
             <div class="form-container">
                 
                 <form id="orderForm">
-                    <!-- Bagian service details dalam grid 2x2 -->
                     <div class="form-group">
                         <label class="form-label">Service Details <span class="required">*</span></label>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
@@ -1251,7 +1329,7 @@ fun `test using your own custom detector`() {
                 </form>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Contact Section -->
     <section id="contact" class="section section-dark">

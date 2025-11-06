@@ -147,7 +147,6 @@ tabBtns.forEach(btn => {
 });
 
 // Pricing data with CORRECTED ORDER: Web (lowest), Android (middle), iOS (highest)
-// Pricing data with CORRECTED ORDER: Web (lowest), Android (middle), iOS (highest)
 const pricingData = {
     web: {
         va: {
