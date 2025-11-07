@@ -964,7 +964,8 @@ fun `test using your own custom detector`() {
             <h2 class="section-title">Get Your Instant Quote</h2>
             <p class="section-description">Simulate pricing based on your needs before ordering</p>
 
-            <form id="orderForm">
+            <!-- <form id="orderForm"> -->
+                <div class="form-container">
                     <!-- Bagian service details dalam grid 2x2 -->
                     <div class="form-group">
                         <!-- <label class="form-label">Service Details <span class="required">*</span></label> -->
@@ -1006,39 +1007,51 @@ fun `test using your own custom detector`() {
                         </div>
                     </div>
 
-                    <div class="price-calculation" id="priceCalculation" style="display: none;">
-                        <div class="calculation-header">
-                            <div class="calculation-title">Estimated Price</div>
-                            <div class="calculation-amount" id="calculatedPrice">-</div>
+                    <div class="form-group">
+                            <div class="price-calculation" id="priceCalculation" style="display: none;">
+                                <div class="calculation-header">
+                                    <div class="calculation-title">Estimated Price</div>
+                                    <div class="calculation-amount" id="calculatedPrice">-</div>
+                                </div>
+                                <div class="calculation-details">
+                                    <div class="calculation-item">
+                                        <span class="calculation-label">Service Type:</span>
+                                        <span class="calculation-value" id="calcServiceType">-</span>
+                                    </div>
+                                    <div class="calculation-item">
+                                        <span class="calculation-label">Platform:</span>
+                                        <span class="calculation-value" id="calcPlatform">-</span>
+                                    </div>
+                                    <div class="calculation-item">
+                                        <span class="calculation-label">Tier:</span>
+                                        <span class="calculation-value" id="calcTier">-</span>
+                                    </div>
+                                    <div class="calculation-item">
+                                        <span class="calculation-label">Mode:</span>
+                                        <span class="calculation-value" id="calcMode">-</span>
+                                    </div>
+                                    <div class="calculation-item">
+                                        <span class="calculation-label">Estimated Hours:</span>
+                                        <span class="calculation-value" id="calcHours">-</span>
+                                    </div>
+                                    <div class="calculation-item">
+                                        <span class="calculation-label">Duration:</span>
+                                        <span class="calculation-value" id="calcDuration">-</span>
+                                    </div>
+                                    
+                                    
+                                </div>
+                                <a href="https://forms.gle/ZThWUHYCTTtFsbif9"  class="btn btn-primary">Request Now</a>
+                                
+                            </div>
+                            
                         </div>
-                        <div class="calculation-details">
-                            <div class="calculation-item">
-                                <span class="calculation-label">Service Type:</span>
-                                <span class="calculation-value" id="calcServiceType">-</span>
-                            </div>
-                            <div class="calculation-item">
-                                <span class="calculation-label">Platform:</span>
-                                <span class="calculation-value" id="calcPlatform">-</span>
-                            </div>
-                            <div class="calculation-item">
-                                <span class="calculation-label">Tier:</span>
-                                <span class="calculation-value" id="calcTier">-</span>
-                            </div>
-                            <div class="calculation-item">
-                                <span class="calculation-label">Mode:</span>
-                                <span class="calculation-value" id="calcMode">-</span>
-                            </div>
-                            <div class="calculation-item">
-                                <span class="calculation-label">Estimated Hours:</span>
-                                <span class="calculation-value" id="calcHours">-</span>
-                            </div>
-                            <div class="calculation-item">
-                                <span class="calculation-label">Duration:</span>
-                                <span class="calculation-value" id="calcDuration">-</span>
-                            </div>
-                        </div>
-                    </div>
-            </form>
+                    
+
+                    
+            
+            </div>
+                    <!-- </form> -->
         </div>
     </section>
 
@@ -1338,7 +1351,7 @@ fun `test using your own custom detector`() {
                 <h2 class="section-title">Ready to Lock Things Down?</h2>
                 <p class="contact-description">Let's chat about making your apps hacker-proof</p>
                 <div class="contact-actions">
-                    <a href="mailto:bazeniancode@gmail.com" class="btn btn-primary">Hit Us Up</a>
+                    <a href="https://forms.gle/ZThWUHYCTTtFsbif9" class="btn btn-primary">Hit Us Up</a>
                     <a href="#pricing" class="btn btn-secondary">Check Prices</a>
                 </div>
             </div>
