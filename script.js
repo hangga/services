@@ -84,7 +84,7 @@ serviceCards.forEach((card, index) => {
     observer.observe(card);
 });
 
-// Platform selection functionality - UPDATED ORDER
+// Platform selection functionality
 const platformBtns = document.querySelectorAll('.platform-btn');
 const pricingPlatforms = document.querySelectorAll('.pricing-platform');
 const platformDescription = document.getElementById('platform-description');
@@ -146,8 +146,11 @@ tabBtns.forEach(btn => {
     });
 });
 
-// Pricing data with CORRECTED ORDER: Web (lowest), Android (middle), iOS (highest)
-const pricingData = {
+// ============================================================================
+// PRICING DATA - SINGLE SOURCE OF TRUTH
+// ============================================================================
+
+const PRICING_DATA = {
     web: {
         va: {
             lite: { 
@@ -240,7 +243,10 @@ const pricingData = {
     }
 };
 
-// Form elements
+// ============================================================================
+// FORM ELEMENTS
+// ============================================================================
+
 const serviceTypeSelect = document.getElementById('serviceType');
 const platformSelect = document.getElementById('platform');
 const tierSelect = document.getElementById('testingTier');
@@ -254,21 +260,141 @@ const calcMode = document.getElementById('calcMode');
 const calcHours = document.getElementById('calcHours');
 const calcDuration = document.getElementById('calcDuration');
 
+// ============================================================================
+// PRICING TABLE GENERATION
+// ============================================================================
+
+// Fungsi untuk generate tabel pricing dari data konstanta
+function generatePricingTables() {
+    const platforms = ['web', 'android', 'ios'];
+    
+    platforms.forEach(platform => {
+        const platformElement = document.getElementById(`${platform}-pricing`);
+        if (!platformElement) return;
+
+        // Clear existing content
+        platformElement.innerHTML = '';
+
+        // Generate VA Table
+        const vaTable = createPricingTable('Vulnerability Assessment (VA)', platform, 'va');
+        platformElement.appendChild(vaTable);
+
+        // Generate PT Table  
+        const ptTable = createPricingTable('Penetration Testing (PT)', platform, 'pt');
+        platformElement.appendChild(ptTable);
+    });
+}
+
+// Fungsi untuk create individual pricing table
+function createPricingTable(title, platform, serviceType) {
+    const categoryDiv = document.createElement('div');
+    categoryDiv.className = 'pricing-category';
+
+    const subtitle = document.createElement('h4');
+    subtitle.className = 'pricing-subtitle';
+    subtitle.textContent = title;
+    categoryDiv.appendChild(subtitle);
+
+    const tableWrapper = document.createElement('div');
+    tableWrapper.className = 'pricing-table-wrapper';
+
+    const table = document.createElement('table');
+    table.className = 'pricing-table';
+
+    // Create table header
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+        <tr>
+            <th>Tier</th>
+            <th>Mode</th>
+            <th>Est. Hours</th>
+            <th>Duration</th>
+            <th>Price (IDR)</th>
+            <th>Price (USD)</th>
+        </tr>
+    `;
+    table.appendChild(thead);
+
+    // Create table body
+    const tbody = document.createElement('tbody');
+    
+    const tiers = ['lite', 'standard', 'ultimate'];
+    const modes = ['greybox', 'blackbox'];
+
+    tiers.forEach(tier => {
+        modes.forEach(mode => {
+            const priceInfo = PRICING_DATA[platform]?.[serviceType]?.[tier]?.[mode];
+            if (priceInfo) {
+                const row = document.createElement('tr');
+                
+                // Format tier badge
+                const tierClass = `tier-${tier}`;
+                const tierDisplay = tier.charAt(0).toUpperCase() + tier.slice(1);
+                
+                // Format prices
+                const formattedIDR = 'Rp ' + priceInfo.idr.toLocaleString('id-ID');
+                const formattedUSD = '$' + priceInfo.usd.toLocaleString('en-US');
+
+                row.innerHTML = `
+                    <td><span class="tier-badge ${tierClass}">${tierDisplay}</span></td>
+                    <td>${mode === 'greybox' ? 'Greybox' : 'Blackbox'}</td>
+                    <td>${priceInfo.hours}</td>
+                    <td>${priceInfo.duration}</td>
+                    <td>${formattedIDR}</td>
+                    <td>${formattedUSD}</td>
+                `;
+                
+                tbody.appendChild(row);
+            }
+        });
+    });
+
+    table.appendChild(tbody);
+    tableWrapper.appendChild(table);
+    categoryDiv.appendChild(tableWrapper);
+
+    return categoryDiv;
+}
+
+// ============================================================================
+// PRICE CALCULATION LOGIC
+// ============================================================================
+
+// Initialize price calculation
+function initializePriceCalculation() {
+    // Add event listeners untuk form calculation
+    if (serviceTypeSelect) {
+        serviceTypeSelect.addEventListener('change', calculatePrice);
+    }
+    if (platformSelect) {
+        platformSelect.addEventListener('change', calculatePrice);
+    }
+    if (tierSelect) {
+        tierSelect.addEventListener('change', calculatePrice);
+    }
+    if (modeSelect) {
+        modeSelect.addEventListener('change', calculatePrice);
+    }
+    
+    // Calculate initial price jika ada nilai yang sudah terisi
+    calculatePrice();
+}
+
 // Calculate price function
 function calculatePrice() {
-    const serviceType = serviceTypeSelect.value;
-    const platform = platformSelect.value;
-    const tier = tierSelect.value;
-    const mode = modeSelect.value;
+    const serviceType = serviceTypeSelect?.value;
+    const platform = platformSelect?.value;
+    const tier = tierSelect?.value;
+    const mode = modeSelect?.value;
 
-    // Check if all required fields are filled
+    // Check jika semua required fields terisi
     if (serviceType && platform && tier && mode) {
         let priceData;
         
         if (serviceType === 'va-pt') {
-            // For bundle, calculate VA + PT
-            const vaPrice = pricingData[platform]?.va?.[tier]?.[mode];
-            const ptPrice = pricingData[platform]?.pt?.[tier]?.[mode];
+            // Untuk bundle, calculate VA + PT
+            const vaPrice = PRICING_DATA[platform]?.va?.[tier]?.[mode];
+            const ptPrice = PRICING_DATA[platform]?.pt?.[tier]?.[mode];
             
             if (vaPrice && ptPrice) {
                 priceData = {
@@ -279,140 +405,188 @@ function calculatePrice() {
                 };
             }
         } else {
-            priceData = pricingData[platform]?.[serviceType]?.[tier]?.[mode];
+            priceData = PRICING_DATA[platform]?.[serviceType]?.[tier]?.[mode];
         }
 
-        if (priceData) {
+        if (priceData && priceCalculation && calculatedPrice) {
             // Show calculation
             priceCalculation.style.display = 'block';
             
             // Update calculation details
-            calcServiceType.textContent = serviceType === 'va' ? 'Vulnerability Assessment' : 
+            if (calcServiceType) calcServiceType.textContent = serviceType === 'va' ? 'Vulnerability Assessment' : 
                                        serviceType === 'pt' ? 'Penetration Testing' : 'VA + PT Bundle';
-            calcPlatform.textContent = platform === 'web' ? 'Web Application' :
+            if (calcPlatform) calcPlatform.textContent = platform === 'web' ? 'Web Application' :
                                      platform === 'android' ? 'Android App' :
                                      platform === 'ios' ? 'iOS App' : platform;
-            calcTier.textContent = tier.charAt(0).toUpperCase() + tier.slice(1);
-            calcMode.textContent = mode === 'greybox' ? 'Greybox Testing' : 'Blackbox Testing';
-            calcHours.textContent = priceData.hours + ' hours';
-            calcDuration.textContent = priceData.duration;
+            if (calcTier) calcTier.textContent = tier.charAt(0).toUpperCase() + tier.slice(1);
+            if (calcMode) calcMode.textContent = mode === 'greybox' ? 'Greybox Testing' : 'Blackbox Testing';
+            if (calcHours) calcHours.textContent = priceData.hours + ' hours';
+            if (calcDuration) calcDuration.textContent = priceData.duration;
             
-            // Format and display price
+            // Format dan display price
             const formattedIDR = 'Rp ' + priceData.idr.toLocaleString('id-ID');
             const formattedUSD = '$' + priceData.usd.toLocaleString('en-US');
             calculatedPrice.textContent = `${formattedIDR} / ${formattedUSD}`;
         } else {
-            priceCalculation.style.display = 'none';
+            if (priceCalculation) priceCalculation.style.display = 'none';
         }
     } else {
-        priceCalculation.style.display = 'none';
+        if (priceCalculation) priceCalculation.style.display = 'none';
     }
 }
 
-// Add event listeners
-serviceTypeSelect.addEventListener('change', calculatePrice);
-platformSelect.addEventListener('change', calculatePrice);
-tierSelect.addEventListener('change', calculatePrice);
-modeSelect.addEventListener('change', calculatePrice);
+// ============================================================================
+// FORM SUBMISSION HANDLING
+// ============================================================================
 
-// Form submission handling
-document.getElementById('orderForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Basic form validation
-    const serviceType = serviceTypeSelect.value;
-    const platform = platformSelect.value;
-    const tier = tierSelect.value;
-    const mode = modeSelect.value;
-    const domain = document.getElementById('domain').value;
-    const scope = document.getElementById('scope').value;
-    const fullName = document.getElementById('fullName').value;
-    const email = document.getElementById('email').value;
-    const ownershipProof = document.getElementById('ownershipProof').files.length;
-    
-    if (!serviceType || !platform || !tier || !mode || !domain || !scope || !fullName || !email || !ownershipProof) {
-        alert('Please fill in all required fields');
-        return;
-    }
-    
-    // In a real implementation, you would send this data to a server
-    // For now, we'll just show a success message
-    alert('Thanks for your order! We\'ll contact you within 24 hours to confirm details and provide payment instructions.');
-    
-    // Reset form
-    this.reset();
-    priceCalculation.style.display = 'none';
-});
-
-// Form submission with file upload to Google Apps Script
 document.addEventListener("DOMContentLoaded", function() {
-  const form = document.getElementById("orderForm");
-  const submitBtn = form.querySelector(".submit-btn");
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwyfYJxxYoymFLACeVvVCUF1VDzJylPfiTHS0GI9iLLANar12qPd13QpZjnZEbyLgPz/exec"; // ganti URL-mu
+    const form = document.getElementById("orderForm");
+    
+    // Initialize pricing tables dan calculation
+    generatePricingTables();
+    initializePriceCalculation();
 
-  form.addEventListener("submit", async function(e) {
-    e.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.textContent = "⏳ Submitting...";
+    console.log('Pricing system initialized with data:', PRICING_DATA);
 
-    // Ambil file input
-    const ownershipProof = document.getElementById("ownershipProof").files[0];
-    const additionalDocs = document.getElementById("additionalDocs").files[0];
+    if (form) {
+        const submitBtn = form.querySelector(".submit-btn");
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwyfYJxxYoymFLACeVvVCUF1VDzJylPfiTHS0GI9iLLANar12qPd13QpZjnZEbyLgPz/exec";
 
-    // Konversi file ke Base64
-    async function toBase64(file) {
-      return new Promise((resolve, reject) => {
-        if (!file) return resolve(null);
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result.split(",")[1]);
-        reader.onerror = (error) => reject(error);
-      });
+        form.addEventListener("submit", async function(e) {
+            e.preventDefault();
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = "⏳ Submitting...";
+            }
+
+            // Ambil file input
+            const ownershipProof = document.getElementById("ownershipProof")?.files[0];
+            const additionalDocs = document.getElementById("additionalDocs")?.files[0];
+
+            // Konversi file ke Base64
+            async function toBase64(file) {
+                return new Promise((resolve, reject) => {
+                    if (!file) return resolve(null);
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result.split(",")[1]);
+                    reader.onerror = (error) => reject(error);
+                });
+            }
+
+            const ownershipProofBase64 = await toBase64(ownershipProof);
+            const additionalDocsBase64 = await toBase64(additionalDocs);
+
+            // Kumpulkan semua data
+            const data = {
+                serviceType: form.serviceType?.value || '',
+                platform: form.platform?.value || '',
+                testingTier: form.testingTier?.value || '',
+                testingMode: form.testingMode?.value || '',
+                domain: form.domain?.value || '',
+                scope: form.scope?.value || '',
+                credentials: form.credentials?.value || '',
+                specialRequirements: form.specialRequirements?.value || '',
+                fullName: form.fullName?.value || '',
+                company: form.company?.value || '',
+                email: form.email?.value || '',
+                phone: form.phone?.value || '',
+                timeline: form.timeline?.value || '',
+                ownershipProofName: ownershipProof ? ownershipProof.name : "",
+                ownershipProofData: ownershipProofBase64,
+                additionalDocsName: additionalDocs ? additionalDocs.name : "",
+                additionalDocsData: additionalDocsBase64,
+            };
+
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: { "Content-Type": "application/json" },
+                });
+                const result = await response.json();
+
+                if (result.status === "success") {
+                    alert("✅ Order submitted successfully!");
+                    form.reset();
+                    if (priceCalculation) priceCalculation.style.display = 'none';
+                } else {
+                    alert("⚠️ Submission failed: " + result.message);
+                }
+            } catch (err) {
+                alert("❌ Error sending data: " + err.message);
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "🚀 Submit Order Request";
+                }
+            }
+        });
     }
-
-    const ownershipProofBase64 = await toBase64(ownershipProof);
-    const additionalDocsBase64 = await toBase64(additionalDocs);
-
-    // Kumpulkan semua data
-    const data = {
-      serviceType: form.serviceType.value,
-      platform: form.platform.value,
-      testingTier: form.testingTier.value,
-      testingMode: form.testingMode.value,
-      domain: form.domain.value,
-      scope: form.scope.value,
-      credentials: form.credentials.value,
-      specialRequirements: form.specialRequirements.value,
-      fullName: form.fullName.value,
-      company: form.company.value,
-      email: form.email.value,
-      phone: form.phone.value,
-      timeline: form.timeline.value,
-      ownershipProofName: ownershipProof ? ownershipProof.name : "",
-      ownershipProofData: ownershipProofBase64,
-      additionalDocsName: additionalDocs ? additionalDocs.name : "",
-      additionalDocsData: additionalDocsBase64,
-    };
-
-    try {
-      const response = await fetch(SCRIPT_URL, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
-      const result = await response.json();
-
-      if (result.status === "success") {
-        alert("✅ Order submitted successfully!");
-        form.reset();
-      } else {
-        alert("⚠️ Submission failed: " + result.message);
-      }
-    } catch (err) {
-      alert("❌ Error sending data: " + err.message);
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "🚀 Submit Order Request";
-    }
-  });
 });
+
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+
+// Refresh pricing tables ketika window resize (untuk responsive)
+window.addEventListener('resize', () => {
+    generatePricingTables();
+});
+
+// Safe initialization untuk semua components
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        // Initialize animations
+        if (sections.length > 0) {
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.filter = 'blur(5px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease';
+                observer.observe(section);
+            });
+        }
+
+        // Initialize platform buttons jika ada
+        if (platformBtns.length > 0) {
+            platformBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const platform = btn.dataset.platform;
+                    
+                    // Update active button
+                    platformBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Update platform description
+                    if (platformDescription) {
+                        platformDescription.textContent = platformDescriptions[platform] || 'Pick your platform to see the right pricing';
+                    }
+                    
+                    // Show corresponding pricing
+                    if (pricingPlatforms.length > 0) {
+                        pricingPlatforms.forEach(platform => platform.classList.remove('active'));
+                        const targetPlatform = document.getElementById(`${platform}-pricing`);
+                        if (targetPlatform) targetPlatform.classList.add('active');
+                    }
+                    
+                    // Smooth scroll to pricing section
+                    const pricingSection = document.getElementById('pricing');
+                    if (pricingSection) {
+                        pricingSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+    } catch (error) {
+        console.error('Error during initialization:', error);
+    }
+});
+
+// Export pricing data untuk penggunaan di console debugging (opsional)
+if (typeof window !== 'undefined') {
+    window.PRICING_DATA = PRICING_DATA;
+}

@@ -1,0 +1,92 @@
+{
+  "web": {
+    "va": {
+      "lite": {
+        "greybox": { "hours": 12, "duration": "7–10 days", "idr": 3780000, "usd": 576 },
+        "blackbox": { "hours": 15, "duration": "8–11 days", "idr": 4725000, "usd": 720 }
+      },
+      "standard": {
+        "greybox": { "hours": 30, "duration": "9–14 days", "idr": 9450000, "usd": 1440 },
+        "blackbox": { "hours": 38, "duration": "10–15 days", "idr": 11970000, "usd": 1800 }
+      },
+      "ultimate": {
+        "greybox": { "hours": 60, "duration": "12–20 days", "idr": 18900000, "usd": 2880 },
+        "blackbox": { "hours": 75, "duration": "15–23 days", "idr": 23625000, "usd": 3600 }
+      }
+    },
+    "pt": {
+      "lite": {
+        "greybox": { "hours": 25, "duration": "9–12 days", "idr": 7875000, "usd": 1440 },
+        "blackbox": { "hours": 30, "duration": "10–13 days", "idr": 9450000, "usd": 1728 }
+      },
+      "standard": {
+        "greybox": { "hours": 70, "duration": "12–17 days", "idr": 22050000, "usd": 4320 },
+        "blackbox": { "hours": 85, "duration": "14–19 days", "idr": 26775000, "usd": 5220 }
+      },
+      "ultimate": {
+        "greybox": { "hours": 120, "duration": "15–22 days", "idr": 37800000, "usd": 7200 },
+        "blackbox": { "hours": 150, "duration": "17–25 days", "idr": 47250000, "usd": 9000 }
+      }
+    }
+  },
+  "android": {
+    "va": {
+      "lite": {
+        "greybox": { "hours": 14, "duration": "8–11 days", "idr": 4935000, "usd": 752 },
+        "blackbox": { "hours": 18, "duration": "9–12 days", "idr": 6300000, "usd": 960 }
+      },
+      "standard": {
+        "greybox": { "hours": 35, "duration": "10–15 days", "idr": 11025000, "usd": 1680 },
+        "blackbox": { "hours": 44, "duration": "11–16 days", "idr": 13860000, "usd": 2112 }
+      },
+      "ultimate": {
+        "greybox": { "hours": 70, "duration": "13–19 days", "idr": 22050000, "usd": 3360 },
+        "blackbox": { "hours": 88, "duration": "15–22 days", "idr": 27563000, "usd": 4200 }
+      }
+    },
+    "pt": {
+      "lite": {
+        "greybox": { "hours": 28, "duration": "10–13 days", "idr": 9450000, "usd": 1728 },
+        "blackbox": { "hours": 35, "duration": "11–14 days", "idr": 11813000, "usd": 2160 }
+      },
+      "standard": {
+        "greybox": { "hours": 78, "duration": "13–18 days", "idr": 25515000, "usd": 4752 },
+        "blackbox": { "hours": 98, "duration": "15–20 days", "idr": 31500000, "usd": 5832 }
+      },
+      "ultimate": {
+        "greybox": { "hours": 135, "duration": "16–23 days", "idr": 41580000, "usd": 7776 },
+        "blackbox": { "hours": 169, "duration": "18–26 days", "idr": 51975000, "usd": 9720 }
+      }
+    }
+  },
+  "ios": {
+    "va": {
+      "lite": {
+        "greybox": { "hours": 16, "duration": "9–12 days", "idr": 6300000, "usd": 960 },
+        "blackbox": { "hours": 20, "duration": "10–13 days", "idr": 7875000, "usd": 1200 }
+      },
+      "standard": {
+        "greybox": { "hours": 40, "duration": "11–16 days", "idr": 13860000, "usd": 2112 },
+        "blackbox": { "hours": 50, "duration": "12–17 days", "idr": 17325000, "usd": 2640 }
+      },
+      "ultimate": {
+        "greybox": { "hours": 80, "duration": "14–21 days", "idr": 27720000, "usd": 4224 },
+        "blackbox": { "hours": 100, "duration": "16–23 days", "idr": 34650000, "usd": 5280 }
+      }
+    },
+    "pt": {
+      "lite": {
+        "greybox": { "hours": 32, "duration": "11–14 days", "idr": 11340000, "usd": 2160 },
+        "blackbox": { "hours": 40, "duration": "12–15 days", "idr": 14175000, "usd": 2700 }
+      },
+      "standard": {
+        "greybox": { "hours": 85, "duration": "14–19 days", "idr": 29295000, "usd": 5616 },
+        "blackbox": { "hours": 106, "duration": "16–21 days", "idr": 36225000, "usd": 6912 }
+      },
+      "ultimate": {
+        "greybox": { "hours": 150, "duration": "17–24 days", "idr": 51030000, "usd": 9504 },
+        "blackbox": { "hours": 188, "duration": "19–27 days", "idr": 63788000, "usd": 11880 }
+      }
+    }
+  }
+}
