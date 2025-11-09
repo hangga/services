@@ -1,38 +1,373 @@
-// Enhanced mobile menu toggle
+// ============================================================================
+// KONFIGURASI KURS - MUDAH DIUBAH
+// ============================================================================
+
+const KURS_USD = 16600; // Ganti nilai ini untuk update kurs USD to IDR
+
+// ============================================================================
+// PRICING DATA - SATU SUMBER DATA (HANYA SIMPAN IDR)
+// ============================================================================
+
+const PRICING_DATA = {
+    web: {
+        va: {
+            lite: { 
+                greybox: { hours: 12, duration: '7–10 days', idr: 3780000 }, 
+                blackbox: { hours: 15, duration: '8–11 days', idr: 4725000 } 
+            },
+            standard: { 
+                greybox: { hours: 30, duration: '9–14 days', idr: 9450000 }, 
+                blackbox: { hours: 38, duration: '10–15 days', idr: 11970000 } 
+            },
+            ultimate: { 
+                greybox: { hours: 60, duration: '12–20 days', idr: 18900000 }, 
+                blackbox: { hours: 75, duration: '15–23 days', idr: 23625000 } 
+            }
+        },
+        pt: {
+            lite: { 
+                greybox: { hours: 25, duration: '9–12 days', idr: 7875000 }, 
+                blackbox: { hours: 30, duration: '10–13 days', idr: 9450000 } 
+            },
+            standard: { 
+                greybox: { hours: 70, duration: '12–17 days', idr: 22050000 }, 
+                blackbox: { hours: 85, duration: '14–19 days', idr: 26775000 } 
+            },
+            ultimate: { 
+                greybox: { hours: 120, duration: '15–22 days', idr: 37800000 }, 
+                blackbox: { hours: 150, duration: '17–25 days', idr: 47250000 } 
+            }
+        }
+    },
+    android: {
+        va: {
+            lite: { 
+                greybox: { hours: 14, duration: '8–11 days', idr: 4935000 }, 
+                blackbox: { hours: 18, duration: '9–12 days', idr: 6300000 } 
+            },
+            standard: { 
+                greybox: { hours: 35, duration: '10–15 days', idr: 11025000 }, 
+                blackbox: { hours: 44, duration: '11–16 days', idr: 13860000 } 
+            },
+            ultimate: { 
+                greybox: { hours: 70, duration: '13–19 days', idr: 22050000 }, 
+                blackbox: { hours: 88, duration: '15–22 days', idr: 27563000 } 
+            }
+        },
+        pt: {
+            lite: { 
+                greybox: { hours: 28, duration: '10–13 days', idr: 9450000 }, 
+                blackbox: { hours: 35, duration: '11–14 days', idr: 11813000 } 
+            },
+            standard: { 
+                greybox: { hours: 78, duration: '13–18 days', idr: 25515000 }, 
+                blackbox: { hours: 98, duration: '15–20 days', idr: 31500000 } 
+            },
+            ultimate: { 
+                greybox: { hours: 135, duration: '16–23 days', idr: 41580000 }, 
+                blackbox: { hours: 169, duration: '18–26 days', idr: 51975000 } 
+            }
+        }
+    },
+    ios: {
+        va: {
+            lite: { 
+                greybox: { hours: 16, duration: '9–12 days', idr: 6300000 }, 
+                blackbox: { hours: 20, duration: '10–13 days', idr: 7875000 } 
+            },
+            standard: { 
+                greybox: { hours: 40, duration: '11–16 days', idr: 13860000 }, 
+                blackbox: { hours: 50, duration: '12–17 days', idr: 17325000 } 
+            },
+            ultimate: { 
+                greybox: { hours: 80, duration: '14–21 days', idr: 27720000 }, 
+                blackbox: { hours: 100, duration: '16–23 days', idr: 34650000 } 
+            }
+        },
+        pt: {
+            lite: { 
+                greybox: { hours: 32, duration: '11–14 days', idr: 11340000 }, 
+                blackbox: { hours: 40, duration: '12–15 days', idr: 14175000 } 
+            },
+            standard: { 
+                greybox: { hours: 85, duration: '14–19 days', idr: 29295000 }, 
+                blackbox: { hours: 106, duration: '16–21 days', idr: 36225000 } 
+            },
+            ultimate: { 
+                greybox: { hours: 150, duration: '17–24 days', idr: 51030000 }, 
+                blackbox: { hours: 188, duration: '19–27 days', idr: 63788000 } 
+            }
+        }
+    }
+};
+
+// ============================================================================
+// FUNGSI BANTU YANG CEPAT
+// ============================================================================
+
+// Fungsi konversi IDR ke USD yang cepat
+function idrToUsd(idr) {
+    return Math.round(idr / KURS_USD);
+}
+
+// Fungsi format currency yang cepat
+function formatPrice(idr, currency = 'IDR') {
+    if (currency === 'USD') {
+        const usd = idrToUsd(idr);
+        return '$' + usd.toLocaleString('en-US');
+    } else {
+        return 'Rp ' + idr.toLocaleString('id-ID');
+    }
+}
+
+// ============================================================================
+// GENERATE TABEL PRICING YANG OPTIMAL
+// ============================================================================
+
+function generatePricingTables() {
+    const platforms = ['web', 'android', 'ios'];
+    
+    platforms.forEach(platform => {
+        const container = document.getElementById(`${platform}-pricing`);
+        if (!container) return;
+
+        // Kosongkan container
+        container.innerHTML = '';
+        
+        // Generate tabel untuk VA dan PT
+        container.appendChild(createTable('Vulnerability Assessment (VA)', platform, 'va'));
+        container.appendChild(createTable('Penetration Testing (PT)', platform, 'pt'));
+    });
+}
+
+function createTable(title, platform, serviceType) {
+    // Buat container category
+    const categoryDiv = document.createElement('div');
+    categoryDiv.className = 'pricing-category';
+    
+    // Tambahkan judul
+    const subtitle = document.createElement('h4');
+    subtitle.className = 'pricing-subtitle';
+    subtitle.textContent = title;
+    categoryDiv.appendChild(subtitle);
+    
+    // Buat wrapper table
+    const tableWrapper = document.createElement('div');
+    tableWrapper.className = 'pricing-table-wrapper';
+    
+    // Buat table dengan innerHTML untuk performa optimal
+    const table = document.createElement('table');
+    table.className = 'pricing-table';
+    table.innerHTML = `
+        <thead>
+            <tr>
+                <th>Tier</th>
+                <th>Mode</th>
+                <th>Est. Hours</th>
+                <th>Duration</th>
+                <th>Price (IDR)</th>
+                <th>Price (USD)</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${generateTableRows(platform, serviceType)}
+        </tbody>
+    `;
+    
+    tableWrapper.appendChild(table);
+    categoryDiv.appendChild(tableWrapper);
+    
+    return categoryDiv;
+}
+
+function generateTableRows(platform, serviceType) {
+    const tiers = ['lite', 'standard', 'ultimate'];
+    const modes = ['greybox', 'blackbox'];
+    let rows = '';
+    
+    tiers.forEach(tier => {
+        modes.forEach(mode => {
+            const priceInfo = PRICING_DATA[platform]?.[serviceType]?.[tier]?.[mode];
+            if (priceInfo) {
+                const tierClass = `tier-${tier}`;
+                const tierDisplay = tier.charAt(0).toUpperCase() + tier.slice(1);
+                const modeDisplay = mode === 'greybox' ? 'Greybox' : 'Blackbox';
+                
+                rows += `
+                    <tr>
+                        <td><span class="tier-badge ${tierClass}">${tierDisplay}</span></td>
+                        <td>${modeDisplay}</td>
+                        <td>${priceInfo.hours}</td>
+                        <td>${priceInfo.duration}</td>
+                        <td>${formatPrice(priceInfo.idr, 'IDR')}</td>
+                        <td>${formatPrice(priceInfo.idr, 'USD')}</td>
+                    </tr>
+                `;
+            }
+        });
+    });
+    
+    return rows;
+}
+
+// ============================================================================
+// PRICE CALCULATION YANG EFISIEN
+// ============================================================================
+
+const serviceTypeSelect = document.getElementById('serviceType');
+const platformSelect = document.getElementById('platform');
+const tierSelect = document.getElementById('testingTier');
+const modeSelect = document.getElementById('testingMode');
+const priceCalculation = document.getElementById('priceCalculation');
+const calculatedPrice = document.getElementById('calculatedPrice');
+const calcServiceType = document.getElementById('calcServiceType');
+const calcPlatform = document.getElementById('calcPlatform');
+const calcTier = document.getElementById('calcTier');
+const calcMode = document.getElementById('calcMode');
+const calcHours = document.getElementById('calcHours');
+const calcDuration = document.getElementById('calcDuration');
+
+function initializePriceCalculation() {
+    [serviceTypeSelect, platformSelect, tierSelect, modeSelect].forEach(select => {
+        if (select) select.addEventListener('change', calculatePrice);
+    });
+    calculatePrice();
+}
+
+function calculatePrice() {
+    if (!serviceTypeSelect || !platformSelect || !tierSelect || !modeSelect) return;
+    
+    const serviceType = serviceTypeSelect.value;
+    const platform = platformSelect.value;
+    const tier = tierSelect.value;
+    const mode = modeSelect.value;
+
+    if (serviceType && platform && tier && mode) {
+        let priceData;
+        
+        if (serviceType === 'va-pt') {
+            const va = PRICING_DATA[platform]?.va?.[tier]?.[mode];
+            const pt = PRICING_DATA[platform]?.pt?.[tier]?.[mode];
+            if (va && pt) {
+                priceData = {
+                    hours: va.hours + pt.hours,
+                    duration: `${va.duration.split('–')[0]}–${pt.duration.split('–')[1]}`,
+                    idr: va.idr + pt.idr
+                };
+            }
+        } else {
+            priceData = PRICING_DATA[platform]?.[serviceType]?.[tier]?.[mode];
+        }
+
+        if (priceData && priceCalculation) {
+            priceCalculation.style.display = 'block';
+            
+            // Update details
+            if (calcServiceType) calcServiceType.textContent = 
+                serviceType === 'va' ? 'Vulnerability Assessment' : 
+                serviceType === 'pt' ? 'Penetration Testing' : 'VA + PT Bundle';
+            
+            if (calcPlatform) calcPlatform.textContent = 
+                platform === 'web' ? 'Web Application' :
+                platform === 'android' ? 'Android App' : 'iOS App';
+            
+            if (calcTier) calcTier.textContent = tier.charAt(0).toUpperCase() + tier.slice(1);
+            if (calcMode) calcMode.textContent = mode === 'greybox' ? 'Greybox Testing' : 'Blackbox Testing';
+            if (calcHours) calcHours.textContent = priceData.hours + ' hours';
+            if (calcDuration) calcDuration.textContent = priceData.duration;
+            
+            // Format price
+            if (calculatedPrice) {
+                calculatedPrice.textContent = 
+                    `${formatPrice(priceData.idr, 'IDR')} / ${formatPrice(priceData.idr, 'USD')}`;
+            }
+        } else {
+            if (priceCalculation) priceCalculation.style.display = 'none';
+        }
+    } else {
+        if (priceCalculation) priceCalculation.style.display = 'none';
+    }
+}
+
+// ============================================================================
+// FUNGSI UPDATE KURS YANG CEPAT
+// ============================================================================
+
+function updateExchangeRate(newKurs) {
+    // Update kurs global
+    window.KURS_USD = newKurs;
+    
+    // Regenerate tabel (sangat cepat dengan innerHTML)
+    generatePricingTables();
+    
+    // Update calculation jika ada
+    calculatePrice();
+    
+    console.log(`Kurs updated to: ${newKurs}`);
+}
+
+// ============================================================================
+// MOBILE MENU TOGGLE
+// ============================================================================
+
 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const navLinks = document.querySelector('.nav-links');
 
-mobileMenuBtn.addEventListener('click', () => {
-    mobileMenuBtn.classList.toggle('active');
-    navLinks.classList.toggle('active');
-});
+if (mobileMenuBtn && navLinks) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+}
 
 // Close mobile menu when clicking on a link
-const navLinkItems = document.querySelectorAll('.nav-links a');
-navLinkItems.forEach(link => {
+document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
-        mobileMenuBtn.classList.remove('active');
-        navLinks.classList.remove('active');
+        if (mobileMenuBtn) mobileMenuBtn.classList.remove('active');
+        if (navLinks) navLinks.classList.remove('active');
     });
 });
 
-// Enhanced scroll effect to navigation
-let lastScroll = 0;
-const nav = document.querySelector('.nav');
+// ============================================================================
+// PLATFORM SELECTION FUNCTIONALITY
+// ============================================================================
 
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
+const platformBtns = document.querySelectorAll('.platform-btn');
+const pricingPlatforms = document.querySelectorAll('.pricing-platform');
+const platformDescription = document.getElementById('platform-description');
 
-    if (currentScroll > 100) {
-        nav.classList.add('scrolled');
-    } else {
-        nav.classList.remove('scrolled');
-    }
+const platformDescriptions = {
+    web: "Web application security testing for websites, web apps, and APIs",
+    android: "Comprehensive Android mobile app security testing", 
+    ios: "iOS mobile app security testing for iPhone and iPad applications"
+};
 
-    lastScroll = currentScroll;
-});
+if (platformBtns.length > 0) {
+    platformBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const platform = btn.dataset.platform;
+            
+            // Update active button
+            platformBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Update platform description
+            if (platformDescription) {
+                platformDescription.textContent = platformDescriptions[platform];
+            }
+            
+            // Show corresponding pricing
+            pricingPlatforms.forEach(platform => platform.classList.remove('active'));
+            const target = document.getElementById(`${platform}-pricing`);
+            if (target) target.classList.add('active');
+        });
+    });
+}
 
-// Enhanced smooth scroll with offset
+// ============================================================================
+// SMOOTH SCROLL FUNCTIONALITY
+// ============================================================================
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -48,7 +383,31 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Enhanced animation on scroll
+// ============================================================================
+// SCROLL EFFECT TO NAVIGATION
+// ============================================================================
+
+let lastScroll = 0;
+const nav = document.querySelector('.nav');
+
+if (nav) {
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll > 100) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+
+        lastScroll = currentScroll;
+    });
+}
+
+// ============================================================================
+// ANIMATION ON SCROLL
+// ============================================================================
+
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -64,7 +423,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe sections for enhanced animation
+// Observe sections for animation
 const sections = document.querySelectorAll('.section');
 sections.forEach(section => {
     section.style.opacity = '0';
@@ -84,41 +443,33 @@ serviceCards.forEach((card, index) => {
     observer.observe(card);
 });
 
-// Platform selection functionality
-const platformBtns = document.querySelectorAll('.platform-btn');
-const pricingPlatforms = document.querySelectorAll('.pricing-platform');
-const platformDescription = document.getElementById('platform-description');
+// ============================================================================
+// DELVELIN CODE TABS
+// ============================================================================
 
-const platformDescriptions = {
-    web: "Web application security testing for websites, web apps, and APIs",
-    android: "Comprehensive Android mobile app security testing", 
-    ios: "iOS mobile app security testing for iPhone and iPad applications"
-};
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
 
-platformBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const platform = btn.dataset.platform;
-        
-        // Update active button
-        platformBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        // Update platform description
-        platformDescription.textContent = platformDescriptions[platform];
-        
-        // Show corresponding pricing
-        pricingPlatforms.forEach(platform => platform.classList.remove('active'));
-        document.getElementById(`${platform}-pricing`).classList.add('active');
-        
-        // Smooth scroll to pricing section
-        document.getElementById('pricing').scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+if (tabBtns.length > 0) {
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.dataset.tab;
+            
+            // Remove active class from all buttons and contents
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            
+            // Add active class to clicked button and corresponding content
+            btn.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
         });
     });
-});
+}
 
-// Add loading animation
+// ============================================================================
+// LOADING ANIMATION
+// ============================================================================
+
 window.addEventListener('load', () => {
     document.body.style.opacity = '0';
     document.body.style.transition = 'opacity 0.3s ease';
@@ -128,313 +479,6 @@ window.addEventListener('load', () => {
     }, 100);
 });
 
-// Delvelin Code Tabs
-const tabBtns = document.querySelectorAll('.tab-btn');
-const tabContents = document.querySelectorAll('.tab-content');
-
-tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const tabId = btn.dataset.tab;
-        
-        // Remove active class from all buttons and contents
-        tabBtns.forEach(b => b.classList.remove('active'));
-        tabContents.forEach(c => c.classList.remove('active'));
-        
-        // Add active class to clicked button and corresponding content
-        btn.classList.add('active');
-        document.getElementById(tabId).classList.add('active');
-    });
-});
-
-// ============================================================================
-// PRICING DATA - SINGLE SOURCE OF TRUTH
-// ============================================================================
-
-const PRICING_DATA = {
-    web: {
-        va: {
-            lite: { 
-                greybox: { hours: 12, duration: '7–10 days', idr: 3780000, usd: 576 }, 
-                blackbox: { hours: 15, duration: '8–11 days', idr: 4725000, usd: 720 } 
-            },
-            standard: { 
-                greybox: { hours: 30, duration: '9–14 days', idr: 9450000, usd: 1440 }, 
-                blackbox: { hours: 38, duration: '10–15 days', idr: 11970000, usd: 1800 } 
-            },
-            ultimate: { 
-                greybox: { hours: 60, duration: '12–20 days', idr: 18900000, usd: 2880 }, 
-                blackbox: { hours: 75, duration: '15–23 days', idr: 23625000, usd: 3600 } 
-            }
-        },
-        pt: {
-            lite: { 
-                greybox: { hours: 25, duration: '9–12 days', idr: 7875000, usd: 1440 }, 
-                blackbox: { hours: 30, duration: '10–13 days', idr: 9450000, usd: 1728 } 
-            },
-            standard: { 
-                greybox: { hours: 70, duration: '12–17 days', idr: 22050000, usd: 4320 }, 
-                blackbox: { hours: 85, duration: '14–19 days', idr: 26775000, usd: 5220 } 
-            },
-            ultimate: { 
-                greybox: { hours: 120, duration: '15–22 days', idr: 37800000, usd: 7200 }, 
-                blackbox: { hours: 150, duration: '17–25 days', idr: 47250000, usd: 9000 } 
-            }
-        }
-    },
-    android: {
-        va: {
-            lite: { 
-                greybox: { hours: 14, duration: '8–11 days', idr: 4935000, usd: 752 }, 
-                blackbox: { hours: 18, duration: '9–12 days', idr: 6300000, usd: 960 } 
-            },
-            standard: { 
-                greybox: { hours: 35, duration: '10–15 days', idr: 11025000, usd: 1680 }, 
-                blackbox: { hours: 44, duration: '11–16 days', idr: 13860000, usd: 2112 } 
-            },
-            ultimate: { 
-                greybox: { hours: 70, duration: '13–19 days', idr: 22050000, usd: 3360 }, 
-                blackbox: { hours: 88, duration: '15–22 days', idr: 27563000, usd: 4200 } 
-            }
-        },
-        pt: {
-            lite: { 
-                greybox: { hours: 28, duration: '10–13 days', idr: 9450000, usd: 1728 }, 
-                blackbox: { hours: 35, duration: '11–14 days', idr: 11813000, usd: 2160 } 
-            },
-            standard: { 
-                greybox: { hours: 78, duration: '13–18 days', idr: 25515000, usd: 4752 }, 
-                blackbox: { hours: 98, duration: '15–20 days', idr: 31500000, usd: 5832 } 
-            },
-            ultimate: { 
-                greybox: { hours: 135, duration: '16–23 days', idr: 41580000, usd: 7776 }, 
-                blackbox: { hours: 169, duration: '18–26 days', idr: 51975000, usd: 9720 } 
-            }
-        }
-    },
-    ios: {
-        va: {
-            lite: { 
-                greybox: { hours: 16, duration: '9–12 days', idr: 6300000, usd: 960 }, 
-                blackbox: { hours: 20, duration: '10–13 days', idr: 7875000, usd: 1200 } 
-            },
-            standard: { 
-                greybox: { hours: 40, duration: '11–16 days', idr: 13860000, usd: 2112 }, 
-                blackbox: { hours: 50, duration: '12–17 days', idr: 17325000, usd: 2640 } 
-            },
-            ultimate: { 
-                greybox: { hours: 80, duration: '14–21 days', idr: 27720000, usd: 4224 }, 
-                blackbox: { hours: 100, duration: '16–23 days', idr: 34650000, usd: 5280 } 
-            }
-        },
-        pt: {
-            lite: { 
-                greybox: { hours: 32, duration: '11–14 days', idr: 11340000, usd: 2160 }, 
-                blackbox: { hours: 40, duration: '12–15 days', idr: 14175000, usd: 2700 } 
-            },
-            standard: { 
-                greybox: { hours: 85, duration: '14–19 days', idr: 29295000, usd: 5616 }, 
-                blackbox: { hours: 106, duration: '16–21 days', idr: 36225000, usd: 6912 } 
-            },
-            ultimate: { 
-                greybox: { hours: 150, duration: '17–24 days', idr: 51030000, usd: 9504 }, 
-                blackbox: { hours: 188, duration: '19–27 days', idr: 63788000, usd: 11880 } 
-            }
-        }
-    }
-};
-
-// ============================================================================
-// FORM ELEMENTS
-// ============================================================================
-
-const serviceTypeSelect = document.getElementById('serviceType');
-const platformSelect = document.getElementById('platform');
-const tierSelect = document.getElementById('testingTier');
-const modeSelect = document.getElementById('testingMode');
-const priceCalculation = document.getElementById('priceCalculation');
-const calculatedPrice = document.getElementById('calculatedPrice');
-const calcServiceType = document.getElementById('calcServiceType');
-const calcPlatform = document.getElementById('calcPlatform');
-const calcTier = document.getElementById('calcTier');
-const calcMode = document.getElementById('calcMode');
-const calcHours = document.getElementById('calcHours');
-const calcDuration = document.getElementById('calcDuration');
-
-// ============================================================================
-// PRICING TABLE GENERATION
-// ============================================================================
-
-// Fungsi untuk generate tabel pricing dari data konstanta
-function generatePricingTables() {
-    const platforms = ['web', 'android', 'ios'];
-    
-    platforms.forEach(platform => {
-        const platformElement = document.getElementById(`${platform}-pricing`);
-        if (!platformElement) return;
-
-        // Clear existing content
-        platformElement.innerHTML = '';
-
-        // Generate VA Table
-        const vaTable = createPricingTable('Vulnerability Assessment (VA)', platform, 'va');
-        platformElement.appendChild(vaTable);
-
-        // Generate PT Table  
-        const ptTable = createPricingTable('Penetration Testing (PT)', platform, 'pt');
-        platformElement.appendChild(ptTable);
-    });
-}
-
-// Fungsi untuk create individual pricing table
-function createPricingTable(title, platform, serviceType) {
-    const categoryDiv = document.createElement('div');
-    categoryDiv.className = 'pricing-category';
-
-    const subtitle = document.createElement('h4');
-    subtitle.className = 'pricing-subtitle';
-    subtitle.textContent = title;
-    categoryDiv.appendChild(subtitle);
-
-    const tableWrapper = document.createElement('div');
-    tableWrapper.className = 'pricing-table-wrapper';
-
-    const table = document.createElement('table');
-    table.className = 'pricing-table';
-
-    // Create table header
-    const thead = document.createElement('thead');
-    thead.innerHTML = `
-        <tr>
-            <th>Tier</th>
-            <th>Mode</th>
-            <th>Est. Hours</th>
-            <th>Duration</th>
-            <th>Price (IDR)</th>
-            <th>Price (USD)</th>
-        </tr>
-    `;
-    table.appendChild(thead);
-
-    // Create table body
-    const tbody = document.createElement('tbody');
-    
-    const tiers = ['lite', 'standard', 'ultimate'];
-    const modes = ['greybox', 'blackbox'];
-
-    tiers.forEach(tier => {
-        modes.forEach(mode => {
-            const priceInfo = PRICING_DATA[platform]?.[serviceType]?.[tier]?.[mode];
-            if (priceInfo) {
-                const row = document.createElement('tr');
-                
-                // Format tier badge
-                const tierClass = `tier-${tier}`;
-                const tierDisplay = tier.charAt(0).toUpperCase() + tier.slice(1);
-                
-                // Format prices
-                const formattedIDR = 'Rp ' + priceInfo.idr.toLocaleString('id-ID');
-                const formattedUSD = '$' + priceInfo.usd.toLocaleString('en-US');
-
-                row.innerHTML = `
-                    <td><span class="tier-badge ${tierClass}">${tierDisplay}</span></td>
-                    <td>${mode === 'greybox' ? 'Greybox' : 'Blackbox'}</td>
-                    <td>${priceInfo.hours}</td>
-                    <td>${priceInfo.duration}</td>
-                    <td>${formattedIDR}</td>
-                    <td>${formattedUSD}</td>
-                `;
-                
-                tbody.appendChild(row);
-            }
-        });
-    });
-
-    table.appendChild(tbody);
-    tableWrapper.appendChild(table);
-    categoryDiv.appendChild(tableWrapper);
-
-    return categoryDiv;
-}
-
-// ============================================================================
-// PRICE CALCULATION LOGIC
-// ============================================================================
-
-// Initialize price calculation
-function initializePriceCalculation() {
-    // Add event listeners untuk form calculation
-    if (serviceTypeSelect) {
-        serviceTypeSelect.addEventListener('change', calculatePrice);
-    }
-    if (platformSelect) {
-        platformSelect.addEventListener('change', calculatePrice);
-    }
-    if (tierSelect) {
-        tierSelect.addEventListener('change', calculatePrice);
-    }
-    if (modeSelect) {
-        modeSelect.addEventListener('change', calculatePrice);
-    }
-    
-    // Calculate initial price jika ada nilai yang sudah terisi
-    calculatePrice();
-}
-
-// Calculate price function
-function calculatePrice() {
-    const serviceType = serviceTypeSelect?.value;
-    const platform = platformSelect?.value;
-    const tier = tierSelect?.value;
-    const mode = modeSelect?.value;
-
-    // Check jika semua required fields terisi
-    if (serviceType && platform && tier && mode) {
-        let priceData;
-        
-        if (serviceType === 'va-pt') {
-            // Untuk bundle, calculate VA + PT
-            const vaPrice = PRICING_DATA[platform]?.va?.[tier]?.[mode];
-            const ptPrice = PRICING_DATA[platform]?.pt?.[tier]?.[mode];
-            
-            if (vaPrice && ptPrice) {
-                priceData = {
-                    hours: vaPrice.hours + ptPrice.hours,
-                    duration: `${vaPrice.duration.split('–')[0]}–${ptPrice.duration.split('–')[1]}`,
-                    idr: vaPrice.idr + ptPrice.idr,
-                    usd: vaPrice.usd + ptPrice.usd
-                };
-            }
-        } else {
-            priceData = PRICING_DATA[platform]?.[serviceType]?.[tier]?.[mode];
-        }
-
-        if (priceData && priceCalculation && calculatedPrice) {
-            // Show calculation
-            priceCalculation.style.display = 'block';
-            
-            // Update calculation details
-            if (calcServiceType) calcServiceType.textContent = serviceType === 'va' ? 'Vulnerability Assessment' : 
-                                       serviceType === 'pt' ? 'Penetration Testing' : 'VA + PT Bundle';
-            if (calcPlatform) calcPlatform.textContent = platform === 'web' ? 'Web Application' :
-                                     platform === 'android' ? 'Android App' :
-                                     platform === 'ios' ? 'iOS App' : platform;
-            if (calcTier) calcTier.textContent = tier.charAt(0).toUpperCase() + tier.slice(1);
-            if (calcMode) calcMode.textContent = mode === 'greybox' ? 'Greybox Testing' : 'Blackbox Testing';
-            if (calcHours) calcHours.textContent = priceData.hours + ' hours';
-            if (calcDuration) calcDuration.textContent = priceData.duration;
-            
-            // Format dan display price
-            const formattedIDR = 'Rp ' + priceData.idr.toLocaleString('id-ID');
-            const formattedUSD = '$' + priceData.usd.toLocaleString('en-US');
-            calculatedPrice.textContent = `${formattedIDR} / ${formattedUSD}`;
-        } else {
-            if (priceCalculation) priceCalculation.style.display = 'none';
-        }
-    } else {
-        if (priceCalculation) priceCalculation.style.display = 'none';
-    }
-}
-
 // ============================================================================
 // FORM SUBMISSION HANDLING
 // ============================================================================
@@ -442,11 +486,11 @@ function calculatePrice() {
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("orderForm");
     
-    // Initialize pricing tables dan calculation
+    // Initialize pricing system
     generatePricingTables();
     initializePriceCalculation();
 
-    console.log('Pricing system initialized with data:', PRICING_DATA);
+    console.log('Pricing system loaded with kurs:', KURS_USD);
 
     if (form) {
         const submitBtn = form.querySelector(".submit-btn");
@@ -496,6 +540,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 ownershipProofData: ownershipProofBase64,
                 additionalDocsName: additionalDocs ? additionalDocs.name : "",
                 additionalDocsData: additionalDocsBase64,
+                exchangeRate: KURS_USD
             };
 
             try {
@@ -526,67 +571,17 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // ============================================================================
-// UTILITY FUNCTIONS
+// EXPORT UNTUK ADMIN (OPTIONAL)
 // ============================================================================
 
-// Refresh pricing tables ketika window resize (untuk responsive)
-window.addEventListener('resize', () => {
-    generatePricingTables();
-});
-
-// Safe initialization untuk semua components
-document.addEventListener('DOMContentLoaded', function() {
-    try {
-        // Initialize animations
-        if (sections.length > 0) {
-            sections.forEach(section => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(30px)';
-                section.style.filter = 'blur(5px)';
-                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease';
-                observer.observe(section);
-            });
-        }
-
-        // Initialize platform buttons jika ada
-        if (platformBtns.length > 0) {
-            platformBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const platform = btn.dataset.platform;
-                    
-                    // Update active button
-                    platformBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    
-                    // Update platform description
-                    if (platformDescription) {
-                        platformDescription.textContent = platformDescriptions[platform] || 'Pick your platform to see the right pricing';
-                    }
-                    
-                    // Show corresponding pricing
-                    if (pricingPlatforms.length > 0) {
-                        pricingPlatforms.forEach(platform => platform.classList.remove('active'));
-                        const targetPlatform = document.getElementById(`${platform}-pricing`);
-                        if (targetPlatform) targetPlatform.classList.add('active');
-                    }
-                    
-                    // Smooth scroll to pricing section
-                    const pricingSection = document.getElementById('pricing');
-                    if (pricingSection) {
-                        pricingSection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        }
-    } catch (error) {
-        console.error('Error during initialization:', error);
-    }
-});
-
-// Export pricing data untuk penggunaan di console debugging (opsional)
 if (typeof window !== 'undefined') {
-    window.PRICING_DATA = PRICING_DATA;
+    window.PricingSystem = {
+        updateExchangeRate,
+        getKurs: () => KURS_USD,
+        formatPrice,
+        idrToUsd,
+        PRICING_DATA
+    };
+    
+    console.log('Pricing System loaded. Use PricingSystem.updateExchangeRate(newKurs) to update exchange rate.');
 }

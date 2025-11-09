@@ -429,7 +429,87 @@ fun `test using your own custom detector`() {
             <p class="section-description">Simulate pricing based on your needs before ordering</p>
 
             <div class="form-container">
-                <!-- Form section tetap seperti sebelumnya -->
+                    <!-- Bagian service details dalam grid 2x2 -->
+                    <div class="form-group">
+                        <!-- <label class="form-label">Service Details <span class="required">*</span></label> -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <label class="form-label" for="serviceType">Service Type</label>
+                                <select class="form-select" id="serviceType" name="serviceType" required>
+                                    <option value="">Select a service</option>
+                                    <option value="va">Vulnerability Assessment (VA)</option>
+                                    <option value="pt">Penetration Testing (PT)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label" for="platform">Platform</label>
+                                <select class="form-select" id="platform" name="platform" required>
+                                    <option value="">Select platform</option>
+                                    <option value="web">Web Application</option>
+                                    <option value="android">Android App</option>
+                                    <option value="ios">iOS App</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label" for="testingTier">Testing Tier</label>
+                                <select class="form-select" id="testingTier" name="testingTier" required>
+                                    <option value="">Select a tier</option>
+                                    <option value="lite">Lite</option>
+                                    <option value="standard">Standard</option>
+                                    <option value="ultimate">Ultimate</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label" for="testingMode">Testing Mode</label>
+                                <select class="form-select" id="testingMode" name="testingMode" required>
+                                    <option value="">Select a mode</option>
+                                    <option value="greybox">Greybox Testing</option>
+                                    <option value="blackbox">Blackbox Testing</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <div class="price-calculation" id="priceCalculation" style="display: none;">
+                                <div class="calculation-header">
+                                    <div class="calculation-title">Estimated Price</div>
+                                    <div class="calculation-amount" id="calculatedPrice">-</div>
+                                </div>
+                                <div class="calculation-details">
+                                    <div class="calculation-item">
+                                        <span class="calculation-label">Service Type:</span>
+                                        <span class="calculation-value" id="calcServiceType">-</span>
+                                    </div>
+                                    <div class="calculation-item">
+                                        <span class="calculation-label">Platform:</span>
+                                        <span class="calculation-value" id="calcPlatform">-</span>
+                                    </div>
+                                    <div class="calculation-item">
+                                        <span class="calculation-label">Tier:</span>
+                                        <span class="calculation-value" id="calcTier">-</span>
+                                    </div>
+                                    <div class="calculation-item">
+                                        <span class="calculation-label">Mode:</span>
+                                        <span class="calculation-value" id="calcMode">-</span>
+                                    </div>
+                                    <div class="calculation-item">
+                                        <span class="calculation-label">Estimated Hours:</span>
+                                        <span class="calculation-value" id="calcHours">-</span>
+                                    </div>
+                                    <div class="calculation-item">
+                                        <span class="calculation-label">Duration:</span>
+                                        <span class="calculation-value" id="calcDuration">-</span>
+                                    </div>
+                                    
+                                    
+                                </div>
+                                <a href="https://forms.gle/ZThWUHYCTTtFsbif9"  class="btn btn-primary">Request Now</a>
+                                
+                            </div>
+                            
+                        </div>
+                
             </div>
         </div>
     </section>
